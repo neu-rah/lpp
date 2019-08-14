@@ -75,6 +75,10 @@ cache:
    directories:
        - "~/.platformio"
 
+install:
+    - pip install -U platformio
+    - platformio update
+
 env:
    - PLATFORMIO_CI_SRC=examples/lpp/src/main.cpp
 
