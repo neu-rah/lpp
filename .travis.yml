@@ -83,4 +83,4 @@ env:
    - PLATFORMIO_CI_SRC=examples/lpp/src/main.cpp
 
 script:
-   - platformio ci --lib="."
+   - platformio ci --lib="." --project-conf
