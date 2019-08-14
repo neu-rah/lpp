@@ -1,6 +1,8 @@
 # <λ++>
 #### type-level lambda for C++
 
+[![Build Status](https://travis-ci.org/neu-rah/lpp.svg?branch=master)](https://travis-ci.org/neu-rah/lpp)
+
 **this is an experimental project. so, please share your thoughts**
 
 lambda calculus for C++ types, this is pure compile time, so data here are C++ types
