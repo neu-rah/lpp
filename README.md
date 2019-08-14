@@ -1,7 +1,7 @@
 # <λ++>
 #### type-level lambda for C++
 
-[![Build Status](https://travis-ci.org/neu-rah/lpp.svg?branch=master)](https://travis-ci.org/neu-rah/lpp)
+[![Build Status](https://travis-ci.com/neu-rah/lpp.svg?branch=master)](https://travis-ci.org/neu-rah/lpp)
 
 **this is an experimental project. so, please share your thoughts**
 
