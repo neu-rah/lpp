@@ -1,0 +1,19 @@
+{
+  "name": "lpp",
+  "keywords": "lambda, typelevel, c++",
+  "description": "C++ type manipulation language",
+  "license": "MIT",
+  "authors":
+{
+    "name": "Rui Azevedo",
+    "email": "ruihfazevedo@gmail.com"
+},
+"repository":
+  {
+    "type": "git",
+    "url": "https://github.com/neu-rah/lpp",
+    "branch": "master"
+  },
+  "frameworks": "*",
+  "platforms": "*"
+}
