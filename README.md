@@ -1,7 +1,7 @@
 # <λ++>
 #### type-level lambda for C++
 
-**this is an experimental project. so, please share your thoughts***
+**this is an experimental project. so, please share your thoughts**
 
 lambda calculus for C++ types, this is pure compile time, so data here are C++ types
 
