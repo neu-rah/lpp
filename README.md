@@ -1,7 +1,11 @@
 # <λ++>
 #### type-level lambda for C++
 
+**this is an experimental project. so, please share your thoughts***
+
 lambda calculus for C++ types, this is pure compile time, so data here are C++ types
+
+inspired by the excellent videos of @glebec (https://youtu.be/3VQ382QG-y4) (thank you!)
 
 ```c++
 Float::Type phi=1.618;
@@ -20,7 +24,7 @@ using sz_t=Expr<MCU_8BITS,As<uint8_t>,Int>::Type;
 
 Using a _curry_ template that can turn any c++ template of types into a curryed version adding ::Bind member types, this also reduces the original template to a single type, making it possible to compose and combine them again in new operations.
 
-Just because non-curryed version are so easy to write in C++, but we absolutelly need them currying.
+Just because non-curryed version are so easy to write in C++, but we absolutely need them currying.
 
 ### lambda 'standard' terms
 |name|lambda|description|
@@ -61,7 +65,7 @@ extract with `::Value`
 
 ### Logic
 
-implemented operators And, Or, Not and booleans
+implemented operators And, Or, Not, booleans and BEq (boolean equality)
 
 ### Numerals
 

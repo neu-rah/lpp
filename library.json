@@ -14,6 +14,10 @@
     "url": "https://github.com/neu-rah/lpp",
     "branch": "master"
   },
+  "version":"0.0.1",
   "frameworks": "*",
-  "platforms": "*"
+  "platforms": "*",
+  "examples": [
+    "[Ee]xamples/*/*.cpp"
+  ]
 }
