@@ -4,6 +4,7 @@
 using namespace std;
 
 #include <lpp.h>
+using namespace lambda;
 
 const char* ok="Ok";using Ok=StaticText<&ok>;
 const char* fail="Fail";using Fail=StaticText<&fail>;
