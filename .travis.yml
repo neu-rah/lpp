@@ -65,3 +65,9 @@
 #
 # script:
 #     - platformio ci --lib="." --board=ID_1 --board=ID_2 --board=ID_N
+
+env:
+   - PLATFORMIO_CI_SRC=examples/lpp/src/main.cpp
+
+script:
+   - platformio ci --lib="."
