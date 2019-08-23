@@ -4,7 +4,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Currying C++ templates //////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-namespace lambda {
+// namespace lambda {
   template<template<typename...> class F,int n=-1, typename... OO>
   struct Curry {
     template<typename O> using Bind=typename Curry<F,(n>0)?n-1:n,OO...,O>::App;
@@ -14,14 +14,14 @@ namespace lambda {
     template<typename E> struct Expr<E>:Bind<E>::App {};
   };
 
-  // template<template<typename...> class F, typename O,typename... OO>
-  // struct Curry<F,-1,O,OO...> {
-  //   template<typename P> using Bind=typename Curry<F,-1,OO...,P>::App;
-  //   using App=typename F<O,OO...>::App;
-  //   template<typename... EE> struct Expr;
-  //   template<typename E,typename... EE> struct Expr<E,EE...>:Bind<E>::template Expr<EE...>{};
-  //   template<typename E> struct Expr<E>:Bind<E> {};
-  // };
+  template<template<typename...> class F, typename O,typename... OO>
+  struct Curry<F,-1,O,OO...> {
+    template<typename P> using Bind=typename Curry<F,-1,OO...,P>::App;
+    using App=typename F<O,OO...>::App;
+    template<typename... EE> struct Expr;
+    template<typename E,typename... EE> struct Expr<E,EE...>:Bind<E>::template Expr<EE...>::App{};
+    template<typename E> struct Expr<E>:Bind<E>::App {};
+  };
 
   template<template<typename...> class F, typename O,typename... OO>
   struct Curry<F,0,O,OO...> {
@@ -32,5 +32,5 @@ namespace lambda {
 
   //////////////////////////////////////////////
   // get long bind sequences easier to write
-  template<typename O,typename... OO> using Expr=typename O::template Expr<OO...>::App;
-};//λ
+  template<typename O,typename... OO> using Expr=typename O::App::template Expr<OO...>::App;
+// };//λ
