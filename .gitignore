@@ -32,3 +32,5 @@
 *.app
 
 examples/dev/
+
+.*
