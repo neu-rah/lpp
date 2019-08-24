@@ -111,6 +111,7 @@
 -I/home/azevedo/.platformio/lib/nrf51-sdk_ID328/source/nordic_sdk/components/softdevice/common/softdevice_handler
 -I/home/azevedo/.platformio/lib/nrf51-sdk_ID328/source/nordic_sdk/components/softdevice/s130/headers
 -I/home/azevedo/.platformio/lib/nrf51-sdk_ID328/source/nordic_sdk/components/toolchain
+-I/home/azevedo/Sketchbook/LIBDEV/streamFlow/src
 -I/home/azevedo/.platformio/lib/streamFlow_ID6234/src
 -I/home/azevedo/.platformio/packages/tool-unity
 -I/home/azevedo/Work/r-site.net/lpp/examples/lpp/include

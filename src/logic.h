@@ -4,7 +4,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 #include "lambda.h"
 
-// namespace lambda {
+namespace lambda {
   //logic -----------------------------------------
   using True=K;
   using False=KI;
@@ -20,4 +20,4 @@
 
   template<typename O,typename F> using _T=typename F::template Bind<O>;
   using T=Curry<_T,2>;
-// };
+};

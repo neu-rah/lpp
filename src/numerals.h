@@ -4,9 +4,10 @@
 ////////////////////////////////////////////////////////////////////////////////
 #include "logic.h"
 
-// namespace lambda {
+namespace lambda {
   //numerals -----------------------------------------------------------------
-  template<typename N,typename F> using _Succ=typename B::Bind<F>::template Bind<typename N::template Bind<F>::App>::App;
+  template<typename N,typename F>
+  using _Succ=typename B::Bind<F>::template Bind<typename N::template Bind<F>/*::App*/>;//::App;
   using Succ=Curry<_Succ,2>;
 
   template<typename n,typename k>
@@ -76,4 +77,4 @@
   // convert size_t into numeral
   template<size_t n,typename R=Zero> struct Numeral:public Numeral<n-1,Succ::Bind<R>> {};
   template<typename R> struct Numeral<0,R>:Succ::Bind<R> {};
-// };//λ
+};//λ
