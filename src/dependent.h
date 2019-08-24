@@ -6,7 +6,7 @@
 
 #include <curry.h>
 
-namespace lambda {
+// namespace lambda {
   // Static values
   template<typename T,T val>
   struct StaticValue {
@@ -40,4 +40,4 @@ namespace lambda {
     using App=curry<R,F,f,0,OO...>;
     static constexpr inline R value() {return f(OO::value()...);}
   };
-};//λ
+// };//λ
