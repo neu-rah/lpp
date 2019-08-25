@@ -4,7 +4,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 #include "logic.h"
 
-// namespace lambda {
+namespace lambda {
   //numerals -----------------------------------------------------------------
   template<typename N,typename F>
   using _Succ=typename B::Bind<F>::template Bind<typename N::template Bind<F>/*::App*/>;//::App;
@@ -13,11 +13,11 @@
   template<typename n,typename k>
   using _Add=typename n::template Bind<Succ>::template Bind<k>;
   using Add=Curry<_Add,2>;
-  using Mult=B;
-  using Pow=T;
+  struct Mult:B{};
+  struct Pow:T{};
 
-  using N0=False;
-  using N1=Id;
+  struct N0:False {};
+  struct N1:Id {};
   using N2=Succ::Bind<N1>;
   using N3=Succ::Bind<N2>;
   using N4=Add::Bind<N2>::Bind<N2>;
@@ -61,20 +61,24 @@
     // enum{value=0};
     static constexpr inline int toInt() {return 0;}
     using App=Zero;
-  };
+    template<typename X> using Bind=typename X::DEBUG_Bind;
+    template<typename X> using Expr=typename X::DEBUG_Expr;
+};
 
   template<typename P>
   struct Peano_Succ {
     // enum{value=P::value+1};
-    static constexpr inline int toInt() {return P::toInt()+1;}
+    static constexpr inline int toInt() {return P::App::toInt()+1;}
     using App=Peano_Succ<P>;
+    template<typename X> using Bind=typename X::DEBUG_Bind;
+    template<typename X> using Expr=typename X::DEBUG_Expr;
   };
   using Peano=Curry<Peano_Succ,1>;
 
-  template<typename N> int toInt() {return N::template Bind<Peano>::template Bind<Zero>::toInt();}
+  template<typename N> int toInt() {return N::template Bind<Peano>::template Bind<Zero>::App::toInt();}
 
   ////////////////////////////////////////////////
   // convert size_t into numeral
   template<size_t n,typename R=Zero> struct Numeral:public Numeral<n-1,Succ::Bind<R>> {};
   template<typename R> struct Numeral<0,R>:Succ::Bind<R> {};
-// };//λ
+};//λ

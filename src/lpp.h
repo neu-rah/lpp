@@ -5,4 +5,5 @@
 // namespace lambda {
   #include "numerals.h"
   #include "dependent.h"
+  #include "base.hpp"
 // };

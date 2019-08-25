@@ -8,7 +8,7 @@
 #include "types.h"
 #include "curry.h"
 
-// namespace lambda {
+namespace lambda {
   ////////////////////////////////////////////////////////////////////////////////
   // some standard terms -----------------------------------------------
   template <typename O> using _I=O;
@@ -40,9 +40,9 @@
 
   ////////////////////////////////////////////////////////////////////////////////
   //base  functions --------------------------------
-  using Id=I;
-  using Flip=C;
-  using Pair=V;
+  struct Id:I{};
+  struct Flip:C{};
+  struct Pair:V{};
 
   template<typename P>
   using _Fst=typename P::template Bind<K>;
@@ -51,4 +51,4 @@
   template<typename P>
   using _Snd=typename P::template Bind<KI>;
   using Snd=Curry<_Snd,1>;
-// };//λ
+};//λ
