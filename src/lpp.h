@@ -5,6 +5,6 @@
 // namespace lambda {
   #include "numerals.h"
   #include "dependent.h"
+  #include "list.h"
   #include "base.hpp"
-  #include "curry.hpp"
 // };

@@ -23,8 +23,8 @@ int main() {
   Show<Expr<N1,Not,True,Yes,No>>();//cout type => type::App
 
   //numerals, selecting a type
-  cout<<(0!=(N0::Bind<Not>::Bind<True>::Bind<Float>::Bind<Int>::App::Type)0.618?"Ok":"Fail")<<" Zero numeral"<<endl;
-  cout<<(0==(Succ::Bind<N4>::Bind<Not>::Bind<True>::Bind<Float>::Bind<Int>::App::Type)0.618?"Ok":"Fail")<<" Succ N4"<<endl;
+  cout<<(0!=(N0::Bind<Not>::Bind<True>::Bind<Float>::Bind<Int>::App::Type)0.618?"Ok":"Fail")<<": Zero numeral"<<endl;
+  cout<<(0==(Succ::Bind<N4>::Bind<Not>::Bind<True>::Bind<Float>::Bind<Int>::App::Type)0.618?"Ok":"Fail")<<": Succ N4"<<endl;
 
   cout<<Expr<N0,Not,True,Ok,Fail>::App::value()<<": N0 Not True"<<endl;
   cout<<Expr<N1,Not,True,Fail,Ok>::App::value()<<": N1 Not True"<<endl;
@@ -60,10 +60,10 @@ int main() {
   using P=V::Bind<N1>::Bind<N2>;
   cout<<"Pair (1,2):"<<"("<<toInt<Fst::Bind<P>::App>()<<","<<toInt<Snd::Bind<P>::App>()<<")"<<endl;
   cout<<endl;
-  cout<<"arithmetic"<<endl;
+  cout<<"arithmetic-----------------------"<<endl;
   cout<<"5-3="<<toInt<Expr<Sub,N5,N3>>()<<endl;
   cout<<endl;
-  cout<<"relational operators"<<endl;
+  cout<<"relational operators-----------"<<endl;
   cout<<"5<=3? "<<Expr<LEq,N5,N3,Yes,No>::App::value()<<endl;
   cout<<"3<=5? "<<Expr<LEq,N3,N5,Yes,No>::App::value()<<endl;
   cout<<"2<=2? "<<Expr<LEq,N2,N2,Yes,No>::App::value()<<endl;
@@ -87,6 +87,22 @@ int main() {
   cout<<"2!=2? "<<Expr<NEq,N2,N2,Yes,No>::App::value()<<endl;
   cout<<endl;
 
+  cout<<endl<<"Lists-----------------------"<<endl;
+  using L1=List<String,Float,Int>;
+  cout<<"L1:[String,Float,Int]"<<endl;
+  cout<<"Null L1: ";Show<Expr<Expr<Null,L1>,Yes,No>>();
+  cout<<"Null(Tail L1): ";Show<Expr<Expr<Null,Expr<Tail,L1>>,Yes,No>>();
+  cout<<"Null(Tail (Tail L1)): ";Show<Expr<Expr<Null,Expr<Tail,Expr<Tail,L1>>>,Yes,No>>();
+  cout<<"Null(Tail.Tail.Tail L1)): ";Show<Expr<Expr<Null,Expr<Tail,Expr<Tail,Expr<Tail,L1>>>>,Yes,No>>();
+  cout<<endl;
+
+  using BFL=Expr<Y,Expr<Cons,Char>>;//dont print this!
+  // Show<BFL>(); -> segmentation fault (stack iverflow)
+  cout<<"Lazy: Head(Drop(3*5) [Char..]) : ";Show<Expr<Head,Expr<Drop,Expr<Mult,N3,N5>,BFL>>>();
+  cout<<endl;
+
+
+  cout<<"----------------------------------------------------------------------------------------------------"<<endl;
   cout<<"all this happened at compile time, the only code generated was the code to print this report.. ejoy!"<<endl;
   return true;
 }

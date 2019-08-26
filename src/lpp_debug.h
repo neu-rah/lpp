@@ -55,6 +55,13 @@ namespace lambda {
   template<> std::string trace<Sub>() {return "Sub";}
   template<> std::string trace<Zero>() {return "Zero";}
 
+  template<> std::string trace<Cons>() {return "Cons";}
+  template<> std::string trace<Nil>() {return "Nil";}
+  template<> std::string trace<Head>() {return "Head";}
+  template<> std::string trace<Tail>() {return "Tail";}
+  template<> std::string trace<Null>() {return "Null";}
+  template<> std::string trace<Drop>() {return "Drop";}
+
   // template<> std::string trace<>() {return "";}
 
   template<typename... OO>            struct Names          {static inline std::string names() {return "";};};
