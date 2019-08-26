@@ -32,11 +32,14 @@ namespace lambda {
   using _V=typename F::template Bind<A>::template Bind<B>;
   using V=Curry<_V,3>;
 
-  // template<typename F,typename G,typename A,typename B>
-  // using _Bb=Expr<F,Expr<G,A,B>>;
-  // using Bb=Curry<_Bb,4>;
-
   using Bb=Expr<B,B,B>;
+
+  template<typename F,typename X>
+  using ___Y=typename F::template Bind<typename X::template Bind<X>>;
+  using __Y=Curry<___Y,2>;
+  template<typename F>
+  using _Y=typename __Y::Bind<F>::template Bind<typename __Y::template Bind<F>>;
+  using Y=Curry<_Y,1>;
 
   ////////////////////////////////////////////////////////////////////////////////
   //base  functions --------------------------------

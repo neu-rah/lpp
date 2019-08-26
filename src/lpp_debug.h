@@ -23,6 +23,7 @@ namespace lambda {
   template<> std::string trace<B>() {return "B";}
   template<> std::string trace<V>() {return "V";}
   template<> std::string trace<Bb>() {return "Bb";}
+  template<> std::string trace<Y>() {return "Y";}
   template<> std::string trace<Id>() {return "Id";}
   template<> std::string trace<Flip>() {return "Flip";}
   template<> std::string trace<Pair>() {return "Pair";}
