@@ -20,4 +20,6 @@ namespace lambda {
 
   template<typename O,typename F> using _T=typename F::template Bind<O>;
   using T=Curry<_T,2>;
+
+  struct Const:True {};
 };

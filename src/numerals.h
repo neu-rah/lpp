@@ -63,7 +63,7 @@ namespace lambda {
     using App=Zero;
     template<typename X> using Bind=typename X::DEBUG_Bind;
     template<typename X> using Expr=typename X::DEBUG_Expr;
-};
+  };
 
   template<typename P>
   struct Peano_Succ {

@@ -10,6 +10,7 @@
 
 namespace lambda {
   template<typename O> std::string trace() {return O::name();}
+  template<> std::string trace<Char>() {return "Char";}
   template<> std::string trace<Int>() {return "Int";}
   template<> std::string trace<Float>() {return "Float";}
   template<> std::string trace<String>() {return "String";}
@@ -35,6 +36,7 @@ namespace lambda {
   template<> std::string trace<Or>() {return "Or";}
   template<> std::string trace<BEq>() {return "BEq";}
   template<> std::string trace<T>() {return "T";}
+  template<> std::string trace<Const>() {return "Const";}
 
   template<> std::string trace<Succ>() {return "Succ";}
   template<> std::string trace<Add>() {return "Add";}
@@ -50,10 +52,13 @@ namespace lambda {
   template<> std::string trace<Phi>() {return "Phi";}
   template<> std::string trace<Pred>() {return "Pred";}
   template<> std::string trace<Sub>() {return "Sub";}
+  template<> std::string trace<Zero>() {return "Zero";}
+
   // template<> std::string trace<>() {return "";}
 
   template<typename... OO>            struct Names          {static inline std::string names() {return "";};};
-  template<typename O,typename... OO> struct Names<O,OO...> {static inline std::string names() {return trace<O>()+" "+Names<OO...>::names();};};
+  template<typename O,typename... OO> struct Names<O,OO...> {static inline std::string names() {return trace<O>()+","+Names<OO...>::names();};};
+  template<typename O>                struct Names<O>       {static inline std::string names() {return trace<O>();};};
   template<>                          struct Names<>        {static inline std::string names() {return "";};};
 
   template<typename O>
