@@ -6,8 +6,8 @@
 
 namespace lambda {
   //logic -----------------------------------------
-  struct True:K {};
-  struct False:KI{};
+  struct True:K {inline static constexpr bool value() {return true;}};
+  struct False:KI{inline static constexpr bool value() {return false;}};
   struct Not:C{};
 
   template<typename P,typename Q> using _And=typename P::template Bind<Q>::template Bind<P>::App;

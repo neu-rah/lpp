@@ -20,4 +20,8 @@ namespace lambda {
   template<typename N>
   using _Drop=Expr<N,Tail>;
   using Drop=Curry<_Drop,1>;
+
+  // template<typename O>
+  // using _Last=Expr<Comp<Null,Tail,O>,Expr<Head,O>,Comp<_Last,Tail,O>>;
+  // using Last=Curry<_Last,1>;
 };

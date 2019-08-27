@@ -101,6 +101,8 @@ int main() {
   cout<<"Lazy: Head(Drop(3*5) [Char..]) : ";Show<Expr<Head,Expr<Drop,Expr<Mult,N3,N5>,BFL>>>();
   cout<<endl;
 
+  //factorial (lazy Y)
+  cout<<"5!="<<toInt<Fact::Bind<N5>::App>()<<endl;
 
   cout<<"----------------------------------------------------------------------------------------------------"<<endl;
   cout<<"all this happened at compile time, the only code generated was the code to print this report.. ejoy!"<<endl;

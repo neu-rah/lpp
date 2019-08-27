@@ -56,6 +56,13 @@ namespace lambda {
   using NEq=Curry<_NEq,2>;
 
   ////////////////////////////////////////////////
+  // factorial (do not use over 7)
+  template<typename F,typename N>
+  using _H=Expr<Is0,N,N1,Expr<Mult,N,Expr<F,Expr<Pred,N>>>>;
+  using H=Curry<_H,2>;
+  using Fact=Y::Bind<H>;
+
+  ////////////////////////////////////////////////
   // convert numerals into int using peano numbers
   struct Zero {
     // enum{value=0};
