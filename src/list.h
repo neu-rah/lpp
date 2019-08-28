@@ -21,7 +21,24 @@ namespace lambda {
   using _Drop=Expr<N,Tail>;
   using Drop=Curry<_Drop,1>;
 
-  // template<typename O>
-  // using _Last=Expr<Comp<Null,Tail,O>,Expr<Head,O>,Comp<_Last,Tail,O>>;
-  // using Last=Curry<_Last,1>;
+  template<typename G,typename A, typename B>
+  using _Concat=
+    typename If<Expr<Null,A>>
+    ::template Then<B>
+    ::template Else<
+      Expr<Pair,
+        Expr<Head,A>,
+        Expr<G,Expr<Tail,A>,B>
+      >
+    >;
+  using Concat=Expr<Y,Curry<_Concat,3>>;
+
+  template<typename F,typename Cnt,typename X>
+  using _Length=Expr<Null,X,Cnt,Expr<F,Expr<Succ,Cnt>,Expr<Tail,X>>>;
+  using Length=Expr<Y,Curry<_Length,3>,N0>;
+
+  template<typename X,typename N>
+  using _Index=Expr<Head,Expr<N,Tail,X>>;
+  using Index=Curry<_Index,2>;
+
 };

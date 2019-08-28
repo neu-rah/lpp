@@ -43,8 +43,6 @@ namespace lambda {
   template<> std::string trace<Add>() {return "Add";}
   template<> std::string trace<Mult>() {return "Mult";}
   template<> std::string trace<Pow>() {return "Pow";}
-  template<> std::string trace<H>() {return "H";}
-  template<> std::string trace<Fact>() {return "Fact";}
   template<> std::string trace<N0>() {return "N0";}
   template<> std::string trace<N1>() {return "N1";}
   template<> std::string trace<N2>() {return "N2";}
@@ -63,7 +61,10 @@ namespace lambda {
   template<> std::string trace<Tail>() {return "Tail";}
   template<> std::string trace<Null>() {return "Null";}
   template<> std::string trace<Drop>() {return "Drop";}
-  // template<> std::string trace<Last>() {return "Last";}
+  template<> std::string trace<Concat>() {return "Concat";}
+  template<> std::string trace<Length>() {return "Length";}
+  template<> std::string trace<Index>() {return "Index";}
+// template<> std::string trace<Last>() {return "Last";}
 
   // template<> std::string trace<>() {return "";}
 
