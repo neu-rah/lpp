@@ -41,4 +41,20 @@ namespace lambda {
   using _Index=Expr<Head,Expr<N,Tail,X>>;
   using Index=Curry<_Index,2>;
 
+  // LAST := Y (λgx. NULL x NIL (NULL (CDR x) (CAR x) (g (CDR x))))
+  template<typename F,typename X>
+  using _Last=Expr<Null,X,Nil,Expr<Null,Expr<Tail,X>,Expr<Head,X>,Expr<F,Expr<Tail,X>>>>;
+  using Last=Expr<Y,Curry<_Last,2>>;
+
+  //TRUNCATE := Y (λgx. NULL x NIL (NULL (CDR x) NIL (PAIR (CAR x) (g (CDR x)))))
+  //here renamed to `Onot` as the haskell function
+  template<typename F,typename X>
+  using _Init=Expr<Null,X,Nil,Expr<Null,Expr<Tail,X>,Nil,Expr<Pair,Expr<Head,X>,Expr<F,Expr<Tail,X>>>>>;
+  using Init=Expr<Y,Curry<_Init,2>>;
+
+  // REVERSE := Y (λgal. NULL l a (g (PAIR (CAR l) a) (CDR l))) NIL
+  template<typename F,typename A,typename L>
+  using _Reverse=Expr<Null,L,A,Expr<F,Expr<Pair,Expr<Head,L>,A>,Expr<Tail,L>>>;
+  using Reverse=Expr<Y,Curry<_Reverse,3>,Nil>;
+
 };

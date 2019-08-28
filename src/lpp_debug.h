@@ -64,7 +64,9 @@ namespace lambda {
   template<> std::string trace<Concat>() {return "Concat";}
   template<> std::string trace<Length>() {return "Length";}
   template<> std::string trace<Index>() {return "Index";}
-// template<> std::string trace<Last>() {return "Last";}
+  template<> std::string trace<Last>() {return "Last";}
+  template<> std::string trace<Init>() {return "Init";}
+  template<> std::string trace<Reverse>() {return "Reverse";}
 
   // template<> std::string trace<>() {return "";}
 
