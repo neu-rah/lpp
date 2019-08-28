@@ -57,4 +57,36 @@ namespace lambda {
   using _Reverse=Expr<Null,L,A,Expr<F,Expr<Pair,Expr<Head,L>,A>,Expr<Tail,L>>>;
   using Reverse=Expr<Y,Curry<_Reverse,3>,Nil>;
 
+  //infinit list of numerals starting at N
+  template<typename F,typename N>
+  using _Nats=Expr<Pair,N,Expr<F,Expr<Succ,N>>>;
+  using NatsN=Expr<Y,Curry<_Nats,2>>;
+
+  //numerals infinite list staring at 1
+  struct Nats:NatsN::Bind<N1> {};
+
+  //take n elements of a list in reverse order
+  template<typename F,typename To,typename N,typename From>
+  using _TakeR=
+    typename If<Expr<Is0,N>>
+    ::template Then<To>
+    ::template Else<
+      typename If<Expr<Null,From>>
+      ::template Then<Nil>
+      ::template Else<
+        Expr<
+          F,
+          Expr<Pair,Expr<Head,From>,To>,
+          Expr<Pred,N>,
+          Expr<Tail,From>
+        >
+      >
+    >;
+  using TakeR=Expr<Y,Curry<_TakeR,4>,Nil>;
+
+  //take n elements from a list
+  template<typename N,typename O>
+  using _Take=Expr<Reverse,Expr<TakeR,N,O>>;
+  using Take=Curry<_Take,2>;
+
 };

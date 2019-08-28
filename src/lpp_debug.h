@@ -67,6 +67,10 @@ namespace lambda {
   template<> std::string trace<Last>() {return "Last";}
   template<> std::string trace<Init>() {return "Init";}
   template<> std::string trace<Reverse>() {return "Reverse";}
+  template<> std::string trace<NatsN>() {return "NatsN";}
+  template<> std::string trace<Nats>() {return "Nats";}
+  template<> std::string trace<TakeR>() {return "TakeR";}
+  template<> std::string trace<Take>() {return "Take";}
 
   // template<> std::string trace<>() {return "";}
 

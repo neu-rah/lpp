@@ -43,13 +43,14 @@ namespace lambda {
   };
 
   //////////////////////////////////////////////////////////////////////////////
-  // sintactic sugar ///////////////////////////////////////////////////////////
+  // syntactic sugar ///////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////
 
   // get long bind sequences easier to write
   template<typename O,typename... OO> using Expr=typename O::App::template Expr<OO...>;
 
   //point-free composition helper
+  //this is buggy!!! TODO: use function composition instead!
   template<typename O,typename P,typename... OO> struct Comp:O::template Bind<Comp<P,OO...>> {};
   template<typename O,typename P> struct Comp<O,P>:O::template Bind<P> {};
 

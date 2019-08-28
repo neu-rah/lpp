@@ -104,6 +104,23 @@ int main() {
   //factorial (lazy Y)
   cout<<"5!="<<toInt<Fact::Bind<N5>::App>()<<endl;
 
+  //more list operations
+  using A=List<Float,Int>;
+  using B=List<I,M,K,KI,C,B,V,Bb,Y,Id>;
+  using L2=Expr<Concat,B,A>::App;
+  cout<<"length L2: "<<toInt<Expr<Length,L2>::App>()<<endl;
+  cout<<"Index 5 L2: "<<trace<Expr<Index,L2,N5>::App>()<<endl;
+  cout<<"Lat L2: "<<trace<Expr<Last,L2>::App>()<<endl;
+  cout<<"Length$Init L2: "<<toInt<Expr<Length,Init::Bind<L2>>::App>()<<endl;
+  cout<<"Head(Reverse L2): "<<trace<Expr<Head,Expr<Reverse,L2>>::App>()<<endl;
+  cout<<endl;
+
+  cout<<"Nats: ["<<toInt<Expr<Head,Nats>>()<<", "<<toInt<Expr<Head,Expr<Tail,Nats>>>()<<",..]"<<endl;
+  cout<<"Head(Drop(3*5) Nats): "<<toInt<Expr<Head,Expr<Drop::Bind<Expr<Mult,N3,N5>>,Nats>>::App>()<<endl;
+  cout<<"Length(TakeR 5 Nats): "<<toInt<Expr<Length,Expr<TakeR,N5,Nats>>::App>()<<endl;
+  cout<<"Length(Take 5 Nats): "<<toInt<Expr<Length,Expr<Take,N5,Nats>>::App>()<<endl;
+  cout<<"Head(TakeR 3 Nats): "<<toInt<Expr<Head,Expr<TakeR,N3,Nats>>::App>()<<endl;
+
   cout<<"----------------------------------------------------------------------------------------------------"<<endl;
   cout<<"all this happened at compile time, the only code generated was the code to print this report.. ejoy!"<<endl;
   return true;
