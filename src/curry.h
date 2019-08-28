@@ -42,11 +42,24 @@ namespace lambda {
     static inline constexpr std::string name() {return Name<F,0,OO...>::name();}
   };
 
-  //////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////
+  // sintactic sugar ///////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////
+
   // get long bind sequences easier to write
   template<typename O,typename... OO> using Expr=typename O::App::template Expr<OO...>;
 
   //point-free composition helper
   template<typename O,typename P,typename... OO> struct Comp:O::template Bind<Comp<P,OO...>> {};
   template<typename O,typename P> struct Comp<O,P>:O::template Bind<P> {};
+
+  template<typename condition>
+  struct If {
+    template<typename then_action>
+    struct Then {
+      template<typename else_action>
+      using Else=Expr<condition,then_action,else_action>;
+    };
+  };
+
 };//λ
