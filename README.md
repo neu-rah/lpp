@@ -21,6 +21,8 @@ using MCU_8BITS=True;
 using idx_t=MCU_BITS::Bind<As<uint8_t>>::Bind<Int>::Type;
 //alternative syntax:
 using sz_t=Expr<MCU_8BITS,As<uint8_t>,Int>::Type;
+//syntactic sugar
+using port_t=If<MCU_8BITS>::Then<Char>::Else<Int>;
 ```
 
 ## A language to manipulate types
@@ -100,7 +102,7 @@ implemented operators `And`, `Or`, `Not`, `BEq` (boolean equality) along with fu
 
 ### Numerals
 
-`N0` .. `N5` for convenience
+`N0` .. `N9` for convenience
 
 `Succ n` get the successor of numeral `n`
 
@@ -145,6 +147,24 @@ numerals will yield the corresponding value
 `Null l` check if `l` is empty.
 
 `Drop n l` drops first `n` (as numeral) elements from the list `l`
+
+`Concat a b` join to lists
+
+`Length l` length of a list
+
+`Index l i` get liost element by index/composition
+
+`Last l` get last element of list or Nil
+
+`Init l` list without last element
+
+`Reverse` reverse a finite list
+
+`NatsN n` numerals infinite list starting at `n`
+
+`Nats` numerals infinite list starting at `N1`
+
+
 
 **List<** _elements[,..]_ **>**  
 utility to construct lists as:
