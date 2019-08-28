@@ -20,8 +20,12 @@ namespace lambda {
   struct N1:Id {};
   using N2=Succ::Bind<N1>;
   using N3=Succ::Bind<N2>;
-  using N4=Add::Bind<N2>::Bind<N2>;
-  using N5=Add::Bind<N2>::Bind<N3>;
+  using N4=Succ::Bind<N3>;
+  using N5=Succ::Bind<N4>;
+  using N6=Succ::Bind<N5>;
+  using N7=Succ::Bind<N6>;
+  using N8=Succ::Bind<N7>;
+  using N9=Succ::Bind<N8>;
 
   template<typename N> using _Is0=typename N::template Bind<typename K::template Bind<False>>::template Bind<True>;
   using Is0=Curry<_Is0,1>;
