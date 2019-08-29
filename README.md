@@ -164,7 +164,13 @@ numerals will yield the corresponding value
 
 `Nats` numerals infinite list starting at `N1`
 
+`TakeR n l` take n elements of a list in reverse order
 
+`Take n l` take n elements of a list
+
+`Range s e` list of numerals from `s` to `e`
+
+`Map f l` map a function `f` over list `l`
 
 **List<** _elements[,..]_ **>**  
 utility to construct lists as:
@@ -197,5 +203,5 @@ http://languagemachine.sourceforge.net/lists.html
 Lambda calculus definition  
 https://en.wikipedia.org/wiki/Lambda_calculus_definition
 
-Fixed-point combinator
+Fixed-point combinator  
 https://en.wikipedia.org/wiki/Fixed-point_combinator

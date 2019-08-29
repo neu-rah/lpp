@@ -120,8 +120,15 @@ int main() {
   cout<<"Length(TakeR 5 Nats): "<<toInt<Expr<Length,Expr<TakeR,N5,Nats>>::App>()<<endl;
   cout<<"Length(Take 5 Nats): "<<toInt<Expr<Length,Expr<Take,N5,Nats>>::App>()<<endl;
   cout<<"Head(TakeR 3 Nats): "<<toInt<Expr<Head,Expr<TakeR,N3,Nats>>::App>()<<endl;
+  cout<<endl;
+
+  using L=Expr<Range,N3,N8>::App;
+  cout<<"using L=[3,4,5,6,7,8]"<<endl;
+  cout<<"Length(Range 3 8): "<<toInt<Expr<Length,L>>()<<endl;
+  cout<<"Head(Map (*5) L): "<<toInt<Expr<Head,Expr<Map,Expr<Mult,N5>,L>>::App>()<<endl;
+  cout<<endl;
 
   cout<<"----------------------------------------------------------------------------------------------------"<<endl;
   cout<<"all this happened at compile time, the only code generated was the code to print this report.. ejoy!"<<endl;
-  return true;
+  return 0;
 }

@@ -49,6 +49,10 @@ namespace lambda {
   template<> std::string trace<N3>() {return "N3";}
   template<> std::string trace<N4>() {return "N4";}
   template<> std::string trace<N5>() {return "N5";}
+  template<> std::string trace<N6>() {return "N6";}
+  template<> std::string trace<N7>() {return "N7";}
+  template<> std::string trace<N8>() {return "N8";}
+  template<> std::string trace<N9>() {return "N9";}
   template<> std::string trace<Is0>() {return "Is0";}
   template<> std::string trace<Phi>() {return "Phi";}
   template<> std::string trace<Pred>() {return "Pred";}
@@ -71,6 +75,8 @@ namespace lambda {
   template<> std::string trace<Nats>() {return "Nats";}
   template<> std::string trace<TakeR>() {return "TakeR";}
   template<> std::string trace<Take>() {return "Take";}
+  template<> std::string trace<Range>() {return "Range";}
+  template<> std::string trace<Map>() {return "Map";}
 
   // template<> std::string trace<>() {return "";}
 

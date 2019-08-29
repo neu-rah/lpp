@@ -89,4 +89,23 @@ namespace lambda {
   using _Take=Expr<Reverse,Expr<TakeR,N,O>>;
   using Take=Curry<_Take,2>;
 
+  template<typename S,typename E>
+  using _Range=Expr<Take,Expr<Sub,E,S>,NatsN::Bind<S>>;
+  using Range=Curry<_Range,2>;
+
+  // MAP f x — maps each element of the list x through f:
+  // MAP := Y (λgfx. NULL x NIL (PAIR (f (CAR x)) (g f (CDR x))))
+  template<typename G,typename F, typename O>
+  using _Map=
+    typename If<Expr<Null,O>>
+    ::template Then<Nil>
+    ::template Else<
+      Expr<
+        Pair,
+        Expr<F,Expr<Head,O>>,
+        Expr<G,F,Expr<Tail,O>>
+      >
+    >;
+  using Map=Expr<Y,Curry<_Map,3>>;
+
 };
