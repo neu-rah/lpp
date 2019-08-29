@@ -108,4 +108,28 @@ namespace lambda {
     >;
   using Map=Expr<Y,Curry<_Map,3>>;
 
+  // FILTER f x — evaluates to a list of all e in the list x for which f e is TRUE (assuming that f returns only TRUE or FALSE for all elements of x):
+  // FILTER := Y (λgfx.
+  //   NULL x
+  //   NIL
+  //  (f (CAR x) (PAIR (CAR x)) I (g f (CDR x)))
+  // )
+  template<typename G,typename F, typename O>
+  using _Filter=
+    typename If<Expr<Null,O>>
+    ::template Then<Nil>
+    ::template Else<
+      Expr<
+        F,
+        Expr<Head,O>,
+        Expr<
+          Pair,
+          Expr<Head,O>
+        >,
+        I,
+        Expr<G,F,Expr<Tail,O>>
+      >
+    >;
+  using Filter=Expr<Y,Curry<_Filter,3>>;
+
 };

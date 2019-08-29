@@ -172,6 +172,8 @@ numerals will yield the corresponding value
 
 `Map f l` map a function `f` over list `l`
 
+`Filter f l` filter a list `l` with function `f`
+
 **List<** _elements[,..]_ **>**  
 utility to construct lists as:
 ```c++
