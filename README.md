@@ -108,7 +108,7 @@ beware that negating relational operators does not negate the equality relation 
 `Or<a,b>` logical disjunction
 
 #### BEq
-`BEq<a,b>` boolean equaliy.
+`BEq<a,b>` boolean equality.
 
 ### Numerals and arithmetic
 
@@ -187,7 +187,9 @@ returns a boolean
 #### Map
 `Map<f,l>` map a function `f` over a list
 
-the result is a list were elements are the result of application of function `f` to each element of the original.
+the result is a list where elements are the result of application of function `f` to each element of the original.
+
+`[a,b,..] => [f a,f b,..]`
 
 #### Filter
 `Filter<f,l>` filter list elements using function `f`
@@ -211,9 +213,13 @@ using Resolution=Pow<N<2>>;
 
 here `Resolution` will be a numeral of `2^` to an yet unspecified value.
 
-or by defining brand new functions.
+You can define new functions.
 
-first start by building the final non-curried C++ template to hold your function
+first start by building the final non-curried C++ template to hold your function in lambda namespace.
+
+then use `Curry` template to turn it into a simple type (not template) with a ::Bind member to bind the arguments
+
+eventually use macro `LPP` to import your curried type as a C++ variadic template into the lpp namespace.
 
 ```c++
 namespace lambda {
@@ -222,13 +228,18 @@ namespace lambda {
     typename If<SOME_STATIC_CONFIG>
     ::template Then<A>
     ::template Else<Sub<Pow<N<2>,B>,N<1>>>;
-  using MyFunction=lambda::Curry<_MyFunction,2>;/define a curried version of the function
+  using MyFunction=lambda::Curry<_MyFunction,2>;//define a curried version of the function
 };
 LPP(MyFunction);//import function as variadic template
 
 //then one can use the function
 using x=MyFunction<N<1023>,N<12>>;
 ```
+
+note: if you need to implement more primitive functions, use struct or class instead of a simple alias.
+In that case you must provide an ::App member that will effectively provide the evaluation result.
+
+see the lambda core for examples.
 
 ## Syntactic sugar
 
