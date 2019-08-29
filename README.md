@@ -1,213 +1,257 @@
 # <λ++>
-#### type-level lazy untyped lambda for C++
+#### turing-complete idiom to express types in C++
 
 [![Build Status](https://travis-ci.com/neu-rah/lpp.svg?branch=master)](https://travis-ci.org/neu-rah/lpp)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.me/ruihfazevedo)
 [![License: MIT](https://img.shields.io/github/license/neu-rah/lpp)](https://spdx.org/licenses/MIT.html)
 
-**this is an experimental project. so, please share your thoughts**
-
-lambda calculus for C++ types, this is pure compile time, so data here are C++ types
+Based on lambda calculus, therefor using functional paradigm on top of modern C++ metaprogramming. Expressions on this idiom are metaprogramming and evaluate at compile time, yelding C++ types as a result.  
 
 inspired by the excellent videos of @glebec (https://youtu.be/3VQ382QG-y4) (thank you!)
 
-**Some examples:**  
+### Scope  
+This idiom uses lambda calculus as its background on a close cope with c++ templates.
+It only operates at compile time.  
+Results in β normal form translate to C++ types (native or user defined).  
+So this expressions can only be used in replacement of C++ types.  
+A layer to provide `constexpr` values is available through dependent types.
+It is therefor a turing-complete idiom to decide types at compile time.
+Types have to be extracted after expression evaluation (::App) to yeld valid C++ types.
+Using Lazyness, static immutable "data" (here expressed as c++ types) and partial application.
+
+### Some examples:
 ```c++
 Float::Type phi=1.618;
 ```
+extracting the C++ type `float` with `::Type`
 
+conditional type decision without macros, it not only typecheck, as it also can be encapsulated as a regular C++ type definition.  
+This decision is made at compile time, no extra burden on executable.
 ```c++
-using MCU_8BITS=True;
-using idx_t=MCU_BITS::Bind<As<uint8_t>>::Bind<Int>::Type;
-//alternative syntax:
-using sz_t=Expr<MCU_8BITS,As<uint8_t>,Int>::Type;
-//syntactic sugar
-using port_t=If<MCU_8BITS>::Then<Char>::Else<Int>;
+using MCU_8BITS=True<>;
+using idx_t=MCU_8BITS<Char,Int>::App::Type;
+```
+or
+```c++
+using MCU_8BITS=True<>;
+using idx_t=if<MCU_8BITS>::Then<Char>::Else<Int>::App::Type;
 ```
 
-## A language to manipulate types
+## Curried templates
 
-### Partial application
+Lambda functions are C++ templates.
 
-Using a _curry_ template that can turn any c++ template of types into a curryed version, adding ::Bind member types. This also reduces the original template to a single type, making it possible to compose and combine them again in new operations.
+All template/functions can appear with 0 or n elements up to the maximum allowed by the function definition. It is not a syntax error to provide more.
 
-Just because non-curryed version are so easy to write in C++, but we absolutely need them currying.
+templates with incomplete arguments lists are considered partial applyed lambda functions that can be passed around or complemented with `::Bind`
 
-Function application is **Lazy**.
+example:
+```c++
+True<> //functionl boolean lambda function (with no arguments)
+True<Int> //lambda function with one argument bound, awaiting more arguments
+True<Int>::Bind<Float> //late binding of second argument
+True<Int,Float> //fully satisfied lambda function/c++ template
+```
 
-### lambda 'standard' terms (combinators)
-|name|lambda|description|
-|--- |--- |--- |
-|I |_λx.x_ |Identity|
-|M |_λf.ff_|Self application|
-|K |_λab.a_|first = functional boolean True|
-|KI |_λba.a_|second = functional boolean false|
-|C |_λfab.fba_|flip = functional negation|
-|B |_λfgo.f(g o)_|function composition|
-|V |_λabf.fab_|pair = functional data structure|
-|V |_λabf.fab_|pair = functional data structure|
-|Y |_λf.(λo.f(o o)) (λo.f(o o))_ |Recursion|
+## Functions
 
-### Functions
+#### Id
+`Id<o>` identity function
 
-`Id o` - identity
+returns given object `o`
 
-`Flip f a b` - swap 2 arguments of a given function _`f a b -> f b a`_
+#### Flip
+`Flip<f,a,b>` call function `f` with swapped arguments `f<b,a>`
 
-`Pair a b f` - data constructor, holds a pair of 2 types to deliver them later to the reader function `f` _`(Pair a b) f -> f a b`_
+#### Const
+`Const<o,_>` constant `o` function
 
-`Fst p` - get the first of a pair `p`
+when complete (given second argument) it will return the first one `o`
 
-`Snd p` - get the second of a pair `p`
-
-### Types
-
-provides a c++ primitive type wrapper
-
-**As<** _type_ **>**
-
-extract with `::Type`
-
-### use C++ dependent types
-
-**StaticValue<** _type_ **,** _value_ **>**
-
-extract with `::value()` static function
-
-note: _can only host `constexpr` values_
-
-**StaticText<** _pointer to some static text_ **>**  
-a specialization for handling strings as dependent types in C++11
-
-#### C++ constexpr functions
-**curry<** _«return type»_, _«func. type»_, _«func. ptr»_, _«nr of arguments»_, _[«bounded arguments type list...»]_ **>**
-
-_(**this is an experimental feature** expect heavy changes)_.
-
-transform a C++ constexpr returning function into a lambda curried function that can be used as a lambda term.
+#### Pair
+`Pair<a,b,f>` functional data structure
 
 ```c++
-//define
-inline int _test(int a,int b) {return a*b;}
-using test=curry<int,decltype(&_test),_test,2>;
-
-//use
-cout<<"call c++ function test(3,5) "<<test::Bind<StaticValue<int,3>>::Bind<StaticValue<int,5>>::value()<<endl;
-cout<<"call c++ function Expr<test,3,5> "<<Expr<test,StaticValue<int,3>,StaticValue<int,5>>::value()<<endl;
+using X=Pair<Int,Float>;//store "data" (2 types)
+using Result=X ReaderFunction;//will call `ReaderFunction<Int,Float>
 ```
+
+this "data" structure is used to build lists
+
+#### Fst
+`Fst<p>` get first element of a pair `p`
+
+#### Snd
+`snd<p>` get second element of a pair `p`
 
 ### Logic
 
-implemented operators `And`, `Or`, `Not`, `BEq` (boolean equality) along with functional boolean versions `True` and `False`
+#### True
+`True<a,b>` functional boolean True
 
-### Numerals
+returns `a`
 
-`N0` .. `N9` for convenience
+#### False
+`False<a,b>` functionl boolean False
 
-`Succ n` get the successor of numeral `n`
+returns `b`
 
-`Pred n` get the predecessor of numeral `n`
+#### Not
+`Not<f>` functional negation (same as `Flip`)
 
-`Is0 n` check if numeral `n` is zero
+beware that negating relational operators does not negate the equality relation because this is an ealy negation, notg a lete negation as normal booleans.
 
-#### Peano
+#### And
+`And<a,b>` logical conjunction
 
-using Peano numbers to convert Numeral to constexpr values
+#### Or
+`Or<a,b>` logical disjunction
 
-**toInt<** _type_ **>**() a convenience to print numerals
+#### BEq
+`BEq<a,b>` boolean equaliy.
 
-numerals will yield the corresponding value
+### Numerals and arithmetic
 
-#### Arithmetic (with numerals)
+#### N
+`N<size_t>` create a numeral based on a C++ `size_t`
 
-`Add a b` a+b
+Ex: `N<111>`
 
-`Sub a b` a-b
+#### Succ
+`Succ<n>` return the sucessor of the numeral `n`
 
-`Mul a b` a*b
+#### Pred
+`Pred<n>` return the predecessor of the numeral `n`
 
-`Pow b e` b^e
+#### Add
+`Add<a,b>` add two numerals `a+b`
 
-`Fact n` n!
+#### Sub
+`Sub<a,b>` subtract two numerals `a-b`
 
-#### Relational operators (for numerals)
+#### Mult
+`Mult<a,b>` multiply two numerals `a*b`
 
-`Eq`, `LEq`, `GEq`, `LT`, `GT`, `NEq`
+#### Pow
+`Pow<a,b>` exponential function `a^b`
 
-#### Lists
+#### Is0
+`Is0<n>` Check if numeral `n` is zero (`N<0>`)
 
-`Nil` empty list.
+returns a boolean
 
-`Cons h t` use `o` as list `t` head
+### Lists
 
-`Head l` get list `l` first element (fails compilation if empty).
+#### Nil
+`Nil` empty list
 
-`Tail l` get list `l` tail, yields empty list when empty.
+#### Cons
+`Cons<h,t>` insert element `h` into `t` list.
 
-`Null l` check if `l` is empty.
+#### Head
+`Head<l>` return first element of a list
 
-`Drop n l` drops first `n` (as numeral) elements from the list `l`
+#### Tail
+`Tail<l>` return list `l` with first element removed
 
-`Concat a b` join to lists
+#### Null
+`Null<l>` check if list `l` is empty
 
-`Length l` length of a list
+#### Drop
+`Drop<n,l>` drop `n` elements from list `l`
 
-`Index l i` get liost element by index/composition
+#### Concat
+`Concat<a,b>` concatenate two list into a new one.
 
-`Last l` get last element of list or Nil
+#### Length
+`Length<l>` get the length of a list
 
-`Init l` list without last element
+#### Index
+`Index<l,n>` get nth element from a list
 
-`Reverse` reverse a finite list
+#### Last
+`Last<l>` get last element of a list
 
-`NatsN n` numerals infinite list starting at `n`
+#### Init
+`Init<l>` get list with last element removed
 
-`Nats` numerals infinite list starting at `N1`
+#### Reverse
+`Reverse<L>` get list with elements in reverse order
 
-`TakeR n l` take n elements of a list in reverse order
+#### Nats
+`Nats` just an infinite list of natural numerals `[1..]`
 
-`Take n l` take n elements of a list
+#### Range
+`Range<s,e>` a list of numerals ranging from `s` to `e`
 
-`Range s e` list of numerals from `s` to `e`
+#### Map
+`Map<f,l>` map a function `f` over a list
 
-`Map f l` map a function `f` over list `l`
+the result is a list were elements are the result of application of function `f` to each element of the original.
 
-`Filter f l` filter a list `l` with function `f`
+#### Filter
+`Filter<f,l>` filter list elements using function `f`
 
-`FoldL f n l` fold left a list `l` using 'binary' function `f` starting with `n`
+function `f` should return True for each element that should be included on the result or False otherwise.
 
-`FoldL f n l` right fold a list `l` using 'binary' function `f` starting with `n`
+#### FoldL
+`FoldL<f,i,l>`  fold a list (from left to write) applying function binary `f` to the initial value and repeating the process to the rest of the list with the function result as initial.
 
-**List<** _elements[,..]_ **>**  
-utility to construct lists as:
+#### FoldL
+`FoldR<f,i,l>` same as `FoldL` but starting from the last element of the list.
+
+
+### Adding new functions
+
+function can be added by aliasing expressions
+
 ```c++
-using L1=List<A,B,C>;
-using same_as_L1=Const::Bind<A>::Bind<Const::Bind<B>::Bind<Const::Bind<C>::Bind<Nil>>>;
-using or_this_way=Expr<Cons,A,Expr<Cons,B,Expr<Cons,C,Nil>>>;
+using Resolution=Pow<N<2>>;
 ```
 
-### References
+here `Resolution` will be a numeral of `2^` to an yet unspecified value.
 
-Lambda Calculus  
-http://www.allisons.org/ll/FP/Lambda/
+or by defining brand new functions.
 
-Collected Lambda Calculus Functions  
-https://jwodder.freeshell.org/lambda.html
+first start by building the final non-curried C++ template to hold your function
 
-Lambda Calculus Examples  
-http://users.monash.edu/~lloyd/tildeFP/Lambda/Examples/
+```c++
+namespace lambda {
+  template<typename A,typename B>
+  using _MyFunction=
+    typename If<SOME_STATIC_CONFIG>
+    ::template Then<A>
+    ::template Else<Sub<Pow<N<2>,B>,N<1>>>;
+  using MyFunction=lambda::Curry<_MyFunction,2>;/define a curried version of the function
+};
+LPP(MyFunction);//import function as variadic template
 
-Lazy or Eager? Order of Evaluation in Lambda Calculus and OCaml - The Always Learning Marty  
-https://thealmarty.com/2018/09/03/lazy-or-eager-order-of-evaluation-in-lambda-calculus-and-ocaml/
+//then one can use the function
+using x=MyFunction<N<1023>,N<12>>;
+```
 
-Lambda the Ultimate | Programming Languages Weblog  
-http://lambda-the-ultimate.org/
+## Syntactic sugar
 
-lists.lam  
-http://languagemachine.sourceforge.net/lists.html
+#### If
+`If<condition>::Then<result>::Else<result>` if expression
 
-Lambda calculus definition  
-https://en.wikipedia.org/wiki/Lambda_calculus_definition
+#### List
+`List<...>` build a list with given types
 
-Fixed-point combinator  
-https://en.wikipedia.org/wiki/Fixed-point_combinator
+#### Expr
+`Expr<...>` build a lambda expression with given expressions
+
+#### ::Bind
+`f::Bind<T>` late binding of a parameter to partially applyed function `f`
+
+#### toInt
+`toInt<N>()` constexpr function to extract a `size_t` value from a numeral `N`
+
+```c++
+cout<< toInt<Length<L1>::App>() <<endl;
+```
+
+## More info
+[lambda core](./LAMBDA.md)
+
+some more info abot the lambda core powering this idiom.
