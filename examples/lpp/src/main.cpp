@@ -122,11 +122,15 @@ int main() {
   cout<<"Head(TakeR 3 Nats): "<<toInt<Expr<Head,Expr<TakeR,N3,Nats>>::App>()<<endl;
   cout<<endl;
 
-  using L=Expr<Range,N3,N8>::App;
-  cout<<"using L= Range 3 8 =[3,4,5,6,7]"<<endl;
-  cout<<"Length(Range 3 8): "<<toInt<Expr<Length,L>>()<<endl;
-  cout<<"Head(Map (*5) L): "<<toInt<Expr<Head,Expr<Map,Expr<Mult,N5>,L>>::App>()<<endl;
-  cout<<"length(Filter (>=5) L): "<<toInt<Expr<Length,Expr<Filter,Expr<LEq,N5>,L>>::App>()<<endl;
+  using L3=Expr<Range,N3,N8>::App;
+  cout<<"using L3 = Range 3 8 = [3,4,5,6,7]"<<endl;
+  cout<<"Length(Range 3 8): "<<toInt<Expr<Length,L3>>()<<endl;
+  cout<<"Head(Map (*5) L3): "<<toInt<Expr<Head,Expr<Map,Expr<Mult,N5>,L3>>::App>()<<endl;
+  cout<<"length(Filter (>=5) L3): "<<toInt<Expr<Length,Expr<Filter,Expr<LEq,N5>,L3>>::App>()<<endl;
+  cout<<"Head(Map (5*) L3): "<<toInt<Expr<Head,Expr<Map,Expr<Mult,N5>,L3>>::App>()<<endl;
+  cout<<"length(Filter (>=5) L3): "<<toInt<Expr<Length,Expr<Filter,Expr<LEq,N5>,L3>>::App>()<<endl;
+  cout<<"FoldL Add N0 L3: "<<toInt<Expr<FoldL,Add,N0,L3>::App>()<<endl;
+  cout<<"FoldR Add N0 L3: "<<toInt<Expr<FoldR,Add,N0,L3>::App>()<<endl;
   cout<<endl;
 
   cout<<"----------------------------------------------------------------------------------------------------"<<endl;

@@ -132,4 +132,41 @@ namespace lambda {
     >;
   using Filter=Expr<Y,Curry<_Filter,3>>;
 
+  // FOLD-LEFT f e x — Apply f a to each element of the list x, where a is the result of the previous application (or e for the first application) and return the result of the last application:
+  // FOLD-LEFT := Y (λgfex. NULL x e
+  //   (g f (f e (CAR x)) (CDR x))
+  // )
+  template<typename G,typename F,typename E,typename X>
+  using _FoldL=
+    typename If<Expr<Null,X>>
+    ::template Then<E>
+    ::template Else<
+      Expr<
+        G,
+        F,
+        Expr<F,E,Expr<Head,X>>,
+        Expr<Tail,X>
+      >
+    >;
+  using FoldL=Expr<Y,Curry<_FoldL,4>>;
+
+  // FOLD-RIGHT f e x — Apply (λy. f y a) to each element of the list x in reverse order, where a is the result of the previous application (or e for the first application) and return the result of the last application:
+  // FOLD-RIGHT := λfex. Y (λgy. NULL y e
+  //   (f (CAR y) (g (CDR y)))
+  // ) x
+  template<typename F,typename E,typename G,typename H>
+  using __FoldR=
+    typename If<Expr<Null,H>>
+    ::template Then<E>
+    ::template Else<
+      Expr<
+        F,
+        Expr<Head,H>,
+        Expr<G,Expr<Tail,H>>
+      >
+    >;
+  template<typename F,typename E,typename X>
+  using _FoldR=Expr<Y,Curry<__FoldR,2,F,E>,X>;
+
+  using FoldR=Curry<_FoldR,3>;
 };

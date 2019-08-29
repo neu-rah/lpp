@@ -78,6 +78,8 @@ namespace lambda {
   template<> std::string trace<Range>() {return "Range";}
   template<> std::string trace<Map>() {return "Map";}
   template<> std::string trace<Filter>() {return "Filter";}
+  template<> std::string trace<FoldL>() {return "FoldL";}
+  template<> std::string trace<FoldR>() {return "FoldR";}
 
   // template<> std::string trace<>() {return "";}
 

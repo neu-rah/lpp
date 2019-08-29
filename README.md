@@ -174,6 +174,10 @@ numerals will yield the corresponding value
 
 `Filter f l` filter a list `l` with function `f`
 
+`FoldL f n l` fold left a list `l` using 'binary' function `f` starting with `n`
+
+`FoldL f n l` right fold a list `l` using 'binary' function `f` starting with `n`
+
 **List<** _elements[,..]_ **>**  
 utility to construct lists as:
 ```c++
