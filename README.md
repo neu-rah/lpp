@@ -253,10 +253,10 @@ see the lambda core for examples.
 `Expr<...>` build a lambda expression with given expressions
 
 #### ::Bind
-`f::Bind<T>` late binding of a parameter to partially applyed function `f`
+`f::Bind<t>` late binding of a parameter `t` to partially applyed function `f`
 
 #### toInt
-`toInt<N>()` constexpr function to extract a `size_t` value from a numeral `N`
+`toInt<n>()` constexpr function to extract a `size_t` value from a numeral `n`
 
 ```c++
 cout<< toInt<Length<L1>::App>() <<endl;

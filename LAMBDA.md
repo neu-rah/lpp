@@ -187,6 +187,10 @@ using same_as_L1=Const::Bind<A>::Bind<Const::Bind<B>::Bind<Const::Bind<C>::Bind<
 using or_this_way=Expr<Cons,A,Expr<Cons,B,Expr<Cons,C,Nil>>>;
 ```
 
+### The <λ++> core
+
+<script src="https://gist.github.com/neu-rah/ad35d9c41c75c5eece704dfcf033fb62.js"></script>
+
 ### References
 
 Lambda Calculus  
