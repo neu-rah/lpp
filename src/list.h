@@ -169,4 +169,17 @@ namespace lambda {
   using _FoldR=Expr<Y,Curry<__FoldR,2,F,E>,X>;
 
   using FoldR=Curry<_FoldR,3>;
+
+  template<typename F,typename A,typename B>
+  using _Zip=
+    typename If<Expr<Or,Expr<Null,A>,Expr<Null,B>>>
+    ::template Then<Nil>
+    ::template Else<
+      Expr<
+        Pair,
+        Expr<Pair,Expr<Head,A>,Expr<Head,B>>,
+        Expr<F,Expr<Tail,A>,Expr<Tail,B>>
+      >
+    >;
+    using Zip=Expr<Y,Curry<_Zip,3>>;
 };

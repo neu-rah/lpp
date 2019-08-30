@@ -64,6 +64,7 @@ namespace lpp {
   LPP(Filter);
   LPP(FoldL);
   LPP(FoldR);
+  LPP(Zip);
 
   template<size_t n> struct N:Succ<N<n-1>> {};
   template<> struct N<0>:lambda::N0 {};

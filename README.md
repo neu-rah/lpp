@@ -99,7 +99,7 @@ returns `b`
 #### Not
 `Not<f>` functional negation (same as `Flip`)
 
-beware that negating relational operators does not negate the equality relation because this is an ealy negation, notg a lete negation as normal booleans.
+beware that negating relational operators does not negate the equality relation because this is an early negation, not a late negation as normal booleans.
 
 #### And
 `And<a,b>` logical conjunction
@@ -161,7 +161,7 @@ returns a boolean
 `Drop<n,l>` drop `n` elements from list `l`
 
 #### Concat
-`Concat<a,b>` concatenate two list into a new one.
+`Concat<a,b>` concatenate two lists into a new one.
 
 #### Length
 `Length<l>` get the length of a list
@@ -202,6 +202,8 @@ function `f` should return True for each element that should be included on the 
 #### FoldL
 `FoldR<f,i,l>` same as `FoldL` but starting from the last element of the list.
 
+#### Zip
+`Zup<a,b>` a list of pairs with elements from `a` and `b`.
 
 ### Adding new functions
 

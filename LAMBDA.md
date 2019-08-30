@@ -179,6 +179,8 @@ numerals will yield the corresponding value
 
 `FoldL f n l` right fold a list `l` using 'binary' function `f` starting with `n`
 
+`Zip a b` build a list of pairs from elements of lists A and B, until one of them ends.
+
 **List<** _elements[,..]_ **>**  
 utility to construct lists as:
 ```c++
