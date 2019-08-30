@@ -203,7 +203,7 @@ function `f` should return True for each element that should be included on the 
 `FoldR<f,i,l>` same as `FoldL` but starting from the last element of the list.
 
 #### Zip
-`Zup<a,b>` a list of pairs with elements from `a` and `b`.
+`Zip<a,b>` a list of pairs with elements from `a` and `b`.
 
 ### Adding new functions
 
