@@ -7,7 +7,7 @@
 namespace lambda {
   //numerals -----------------------------------------------------------------
   template<typename N,typename F>
-  using _Succ=typename B::Bind<F>::template Bind<typename N::template Bind<F>/*::App*/>;//::App;
+  using _Succ=typename B::Bind<F>::template Bind<typename N::template Bind<F>>;
   using Succ=Curry<_Succ,2>;
 
   template<typename n,typename k>
@@ -70,23 +70,23 @@ namespace lambda {
   // convert numerals into int using peano numbers
   struct Zero {
     // enum{value=0};
-    static constexpr inline int toInt() {return 0;}
+    static constexpr inline size_t toInt() {return 0;}
     using App=Zero;
     template<typename X> using Bind=typename X::DEBUG_Bind;
-    template<typename X> using Expr=typename X::DEBUG_Expr;
+    // template<typename X> using Expr=typename X::DEBUG_Expr;
   };
 
   template<typename P>
   struct Peano_Succ {
     // enum{value=P::value+1};
-    static constexpr inline int toInt() {return P::App::toInt()+1;}
+    static constexpr inline size_t toInt() {return P::App::toInt()+1;}
     using App=Peano_Succ<P>;
     template<typename X> using Bind=typename X::DEBUG_Bind;
-    template<typename X> using Expr=typename X::DEBUG_Expr;
+    // template<typename X> using Expr=typename X::DEBUG_Expr;
   };
   using Peano=Curry<Peano_Succ,1>;
 
-  template<typename N> int toInt() {return N::template Bind<Peano>::template Bind<Zero>::App::toInt();}
+  template<typename N> size_t toInt() {return N::template Bind<Peano>::template Bind<Zero>::App::toInt();}
 
   ////////////////////////////////////////////////
   // convert size_t into numeral

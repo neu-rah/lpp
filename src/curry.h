@@ -37,7 +37,7 @@ namespace lambda {
     // template<typename X> using Bind=typename X::DEBUG_Bind;
     // template<typename X> using Expr=typename X::DEBUG_Expr;
     template<typename... EE> struct Expr;
-    template<typename E,typename... EE> struct Expr<E,EE...>:Bind<E>::template Expr<EE...> {};
+    template<typename E,typename... EE> struct Expr<E,EE...>:Bind<E>::template Expr<EE...>{};
     template<typename E> struct Expr<E>:Bind<E> {};
     static inline constexpr std::string name() {return Name<F,0,OO...>::name();}
   };
@@ -48,6 +48,10 @@ namespace lambda {
 
   // get long bind sequences easier to write
   template<typename O,typename... OO> using Expr=typename O::App::template Expr<OO...>;
+
+  // // same as above but adds ::App, only for toplevel call! NEVER call this inside expressions
+  // //or lazyness will be broken and compile compromized
+  // template<typename O,typename... OO> using App=typename O::App::template Expr<OO...>;
 
   //point-free composition helper
   //this is buggy!!! TODO: use function composition instead!

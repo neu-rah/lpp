@@ -16,6 +16,9 @@ namespace lpp {
   using Int=lambda::Int;
   using Float=lambda::Float;
   using String=lambda::String;
+  template<typename O> using As=lambda::As<O>;
+  template<typename O>
+  inline constexpr auto value()->decltype(O::App::value()) {return O::App::value();}
   //import type wrappers
   template<typename T,T val> using StaticValue=lambda::StaticValue<T,val>;
   template<const char**val> using StaticText=lambda::StaticText<val>;
