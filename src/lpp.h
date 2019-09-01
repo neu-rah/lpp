@@ -19,6 +19,8 @@ namespace lpp {
   template<typename O> using As=lambda::As<O>;
   template<typename O>
   inline constexpr auto value()->decltype(O::App::value()) {return O::App::value();}
+  template<typename R,typename F,F f,int n, typename... OO>
+  using curry=lambda::curry<R,F,f,n,OO...>;
   //import type wrappers
   template<typename T,T val> using StaticValue=lambda::StaticValue<T,val>;
   template<const char**val> using StaticText=lambda::StaticText<val>;
@@ -74,5 +76,5 @@ namespace lpp {
 
   //some utilities (for debug mostly)
   template<typename N>
-  auto toInt=lambda::toInt<N>;
+  decltype(lambda::toInt<N>) toInt=lambda::toInt<N>;
 };
