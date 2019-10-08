@@ -24,7 +24,7 @@ namespace lambda {
     using App=StaticValue<const char**,val>;
     static constexpr inline const char* value() {return val[0];}
     static inline constexpr std::string name() {return value();}
-    // template<typename X> using Bind=typename X::DEBUG_Bind;
+    template<typename X> using Bind=typename X::DEBUG_Bind;
     // template<typename X> using Expr=typename X::DEBUG_Expr;
   };
 
@@ -34,7 +34,7 @@ namespace lambda {
   ///////////////////////////////////////////////////////////////////////////////
   // build curried versions of c++ functions
   template<typename R,typename F,F f,int n, typename... OO>
-  struct curry:public StaticValue<F,f>  {
+  struct curry/*:public StaticValue<F,f>*/  {
     template<typename O> using Bind=typename curry<R,F,f,n-1,OO...,O>::App;
     using App=curry<R,F,f,n,OO...>;
     template<typename... EE> struct Expr;

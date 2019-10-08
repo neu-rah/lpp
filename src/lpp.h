@@ -74,7 +74,9 @@ namespace lpp {
   template<size_t n> struct N:Succ<N<n-1>> {};
   template<> struct N<0>:lambda::N0 {};
 
-  //some utilities (for debug mostly)
-  template<typename N>
-  decltype(lambda::toInt<N>) toInt=lambda::toInt<N>;
+  #ifdef LPP_DEBUG
+    //some utilities (for debug mostly)
+    template<typename N>
+    decltype(lambda::toInt<N>) toInt=lambda::toInt<N>;
+  #endif
 };
