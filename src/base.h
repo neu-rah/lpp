@@ -1,7 +1,11 @@
 /* -*- C++ -*- */
 #pragma once
 /*Rui Azevedo (neu-rah) ruihfazevedo@gmail.com Aug2019*/
-#include <iostream>
+#ifndef ARDUINO
+  #include <string>
+  #include <iostream>
+  using String=std::string;
+#endif
 
 namespace lambda {
 
@@ -11,7 +15,7 @@ namespace lambda {
 
   template<template<typename...> class F,int n, typename... OO>
   struct Name {
-    static std::string name();
+    static String name();
   };
 
 }//λ

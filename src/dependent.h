@@ -5,7 +5,6 @@
 // access values at typelevel as c++ dependent types
 
 #include <curry.h>
-#include <string>
 
 namespace lambda {
   // Static values
@@ -14,7 +13,7 @@ namespace lambda {
     using App=StaticValue<T,val>;
     using Type=T;
     static constexpr inline T value() {return val;}
-    static inline constexpr std::string name() {return std::to_string(val);}
+    static inline constexpr String name() {return String(val);}
     // template<typename X> using Bind=typename X::DEBUG_Bind;
     // template<typename X> using Expr=typename X::DEBUG_Expr;
   };
@@ -23,7 +22,7 @@ namespace lambda {
   struct StaticValue<const char**,val> {
     using App=StaticValue<const char**,val>;
     static constexpr inline const char* value() {return val[0];}
-    static inline constexpr std::string name() {return value();}
+    static inline constexpr String name() {return value();}
     template<typename X> using Bind=typename X::DEBUG_Bind;
     // template<typename X> using Expr=typename X::DEBUG_Expr;
   };
