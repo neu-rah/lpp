@@ -31,7 +31,29 @@ int main() {
   //wraping user type to use as lambda expression and extracting it as type of x
   True<As<myClass1>,As<myClass2>>::App::Type x;
 
+  //creating a lambda numeral and extracting a `size_t` from it
+  cout<<"list head: [0,1,..] -> ";
   cout<<toInt<Head<Nz>>()<<endl;
+
+  cout<<"head (drop 10 [0,1,..]) -> ";
+  cout<<toInt<
+    Head<
+      Drop<
+        N<10>,
+        Nz
+      >
+    >
+  >()<<endl;
+
+  cout<<"head (drop 10 (Map (Mult 2) [0,1,..])) -> ";
+  cout<<toInt<
+    Head<
+      Drop<
+        N<10>,
+        Map<Mult<N<2>>,Nz>
+      >
+    >
+  >()<<endl;
 
   return 0;
 }

@@ -10,84 +10,84 @@
   #include "logic.h"
 
   namespace lambda {
-    template<typename O> std::string trace() {return O::name();}
-    template<> std::string trace<Char>() {return "Char";}
-    template<> std::string trace<Int>() {return "Int";}
-    template<> std::string trace<Float>() {return "Float";}
-    template<> std::string trace<String>() {return "String";}
+    template<typename O> Str trace() {return O::name();}
+    template<> Str trace<Char>() {return "Char";}
+    template<> Str trace<Int>() {return "Int";}
+    template<> Str trace<Float>() {return "Float";}
+    template<> Str trace<String>() {return "String";}
 
-    template<> std::string trace<I>() {return "I";}
-    template<> std::string trace<M>() {return "M";}
-    template<> std::string trace<K>() {return "K";}
-    template<> std::string trace<KI>() {return "KI";}
-    template<> std::string trace<C>() {return "C";}
-    template<> std::string trace<B>() {return "B";}
-    template<> std::string trace<V>() {return "V";}
-    template<> std::string trace<Bb>() {return "Bb";}
-    template<> std::string trace<Y>() {return "Y";}
-    template<> std::string trace<Id>() {return "Id";}
-    template<> std::string trace<Flip>() {return "Flip";}
-    template<> std::string trace<Pair>() {return "Pair";}
-    template<> std::string trace<Fst>() {return "Fst";}
-    template<> std::string trace<Snd>() {return "Snd";}
+    template<> Str trace<I>() {return "I";}
+    template<> Str trace<M>() {return "M";}
+    template<> Str trace<K>() {return "K";}
+    template<> Str trace<KI>() {return "KI";}
+    template<> Str trace<C>() {return "C";}
+    template<> Str trace<B>() {return "B";}
+    template<> Str trace<V>() {return "V";}
+    template<> Str trace<Bb>() {return "Bb";}
+    template<> Str trace<Y>() {return "Y";}
+    template<> Str trace<Id>() {return "Id";}
+    template<> Str trace<Flip>() {return "Flip";}
+    template<> Str trace<Pair>() {return "Pair";}
+    template<> Str trace<Fst>() {return "Fst";}
+    template<> Str trace<Snd>() {return "Snd";}
 
-    template<> std::string trace<True>() {return "True";}
-    template<> std::string trace<False>() {return "False";}
-    template<> std::string trace<Not>() {return "Not";}
-    template<> std::string trace<And>() {return "And";}
-    template<> std::string trace<Or>() {return "Or";}
-    template<> std::string trace<BEq>() {return "BEq";}
-    template<> std::string trace<T>() {return "T";}
-    template<> std::string trace<Const>() {return "Const";}
+    template<> Str trace<True>() {return "True";}
+    template<> Str trace<False>() {return "False";}
+    template<> Str trace<Not>() {return "Not";}
+    template<> Str trace<And>() {return "And";}
+    template<> Str trace<Or>() {return "Or";}
+    template<> Str trace<BEq>() {return "BEq";}
+    template<> Str trace<T>() {return "T";}
+    template<> Str trace<Const>() {return "Const";}
 
-    template<> std::string trace<Succ>() {return "Succ";}
-    template<> std::string trace<Add>() {return "Add";}
-    template<> std::string trace<Mult>() {return "Mult";}
-    template<> std::string trace<Pow>() {return "Pow";}
-    template<> std::string trace<N0>() {return "N0";}
-    template<> std::string trace<N1>() {return "N1";}
-    template<> std::string trace<N2>() {return "N2";}
-    template<> std::string trace<N3>() {return "N3";}
-    template<> std::string trace<N4>() {return "N4";}
-    template<> std::string trace<N5>() {return "N5";}
-    template<> std::string trace<N6>() {return "N6";}
-    template<> std::string trace<N7>() {return "N7";}
-    template<> std::string trace<N8>() {return "N8";}
-    template<> std::string trace<N9>() {return "N9";}
-    template<> std::string trace<Is0>() {return "Is0";}
-    template<> std::string trace<Phi>() {return "Phi";}
-    template<> std::string trace<Pred>() {return "Pred";}
-    template<> std::string trace<Sub>() {return "Sub";}
-    template<> std::string trace<Zero>() {return "Zero";}
+    template<> Str trace<Succ>() {return "Succ";}
+    template<> Str trace<Add>() {return "Add";}
+    template<> Str trace<Mult>() {return "Mult";}
+    template<> Str trace<Pow>() {return "Pow";}
+    template<> Str trace<N0>() {return "N0";}
+    template<> Str trace<N1>() {return "N1";}
+    template<> Str trace<N2>() {return "N2";}
+    template<> Str trace<N3>() {return "N3";}
+    template<> Str trace<N4>() {return "N4";}
+    template<> Str trace<N5>() {return "N5";}
+    template<> Str trace<N6>() {return "N6";}
+    template<> Str trace<N7>() {return "N7";}
+    template<> Str trace<N8>() {return "N8";}
+    template<> Str trace<N9>() {return "N9";}
+    template<> Str trace<Is0>() {return "Is0";}
+    template<> Str trace<Phi>() {return "Phi";}
+    template<> Str trace<Pred>() {return "Pred";}
+    template<> Str trace<Sub>() {return "Sub";}
+    template<> Str trace<Zero>() {return "Zero";}
 
-    template<> std::string trace<Cons>() {return "Cons";}
-    template<> std::string trace<Nil>() {return "Nil";}
-    template<> std::string trace<Head>() {return "Head";}
-    template<> std::string trace<Tail>() {return "Tail";}
-    template<> std::string trace<Null>() {return "Null";}
-    template<> std::string trace<Drop>() {return "Drop";}
-    template<> std::string trace<Concat>() {return "Concat";}
-    template<> std::string trace<Length>() {return "Length";}
-    template<> std::string trace<Index>() {return "Index";}
-    template<> std::string trace<Last>() {return "Last";}
-    template<> std::string trace<Init>() {return "Init";}
-    template<> std::string trace<Reverse>() {return "Reverse";}
-    template<> std::string trace<NatsN>() {return "NatsN";}
-    template<> std::string trace<Nats>() {return "Nats";}
-    template<> std::string trace<TakeR>() {return "TakeR";}
-    template<> std::string trace<Take>() {return "Take";}
-    template<> std::string trace<Range>() {return "Range";}
-    template<> std::string trace<Map>() {return "Map";}
-    template<> std::string trace<Filter>() {return "Filter";}
-    template<> std::string trace<FoldL>() {return "FoldL";}
-    template<> std::string trace<FoldR>() {return "FoldR";}
+    template<> Str trace<Cons>() {return "Cons";}
+    template<> Str trace<Nil>() {return "Nil";}
+    template<> Str trace<Head>() {return "Head";}
+    template<> Str trace<Tail>() {return "Tail";}
+    template<> Str trace<Null>() {return "Null";}
+    template<> Str trace<Drop>() {return "Drop";}
+    template<> Str trace<Concat>() {return "Concat";}
+    template<> Str trace<Length>() {return "Length";}
+    template<> Str trace<Index>() {return "Index";}
+    template<> Str trace<Last>() {return "Last";}
+    template<> Str trace<Init>() {return "Init";}
+    template<> Str trace<Reverse>() {return "Reverse";}
+    template<> Str trace<NatsN>() {return "NatsN";}
+    template<> Str trace<Nats>() {return "Nats";}
+    template<> Str trace<TakeR>() {return "TakeR";}
+    template<> Str trace<Take>() {return "Take";}
+    template<> Str trace<Range>() {return "Range";}
+    template<> Str trace<Map>() {return "Map";}
+    template<> Str trace<Filter>() {return "Filter";}
+    template<> Str trace<FoldL>() {return "FoldL";}
+    template<> Str trace<FoldR>() {return "FoldR";}
 
-    // template<> std::string trace<>() {return "";}
+    // template<> Str trace<>() {return "";}
 
-    template<typename... OO>            struct Names          {static inline std::string names() {return "";};};
-    template<typename O,typename... OO> struct Names<O,OO...> {static inline std::string names() {return trace<O>()+"->"+Names<OO...>::names();};};
-    template<typename O>                struct Names<O>       {static inline std::string names() {return trace<O>();};};
-    template<>                          struct Names<>        {static inline std::string names() {return "";};};
+    template<typename... OO>            struct Names          {static inline Str names() {return "";};};
+    template<typename O,typename... OO> struct Names<O,OO...> {static inline Str names() {return trace<O>()+"->"+Names<OO...>::names();};};
+    template<typename O>                struct Names<O>       {static inline Str names() {return trace<O>();};};
+    template<>                          struct Names<>        {static inline Str names() {return "";};};
 
     template<typename O>
     void Show() {

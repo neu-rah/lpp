@@ -13,7 +13,7 @@ namespace lambda {
     using App=StaticValue<T,val>;
     using Type=T;
     static constexpr inline T value() {return val;}
-    static inline constexpr String name() {return String(val);}
+    static inline constexpr Str name() {return Str(val);}
     // template<typename X> using Bind=typename X::DEBUG_Bind;
     // template<typename X> using Expr=typename X::DEBUG_Expr;
   };
@@ -22,7 +22,7 @@ namespace lambda {
   struct StaticValue<const char**,val> {
     using App=StaticValue<const char**,val>;
     static constexpr inline const char* value() {return val[0];}
-    static inline constexpr String name() {return value();}
+    static inline constexpr Str name() {return value();}
     template<typename X> using Bind=typename X::DEBUG_Bind;
     // template<typename X> using Expr=typename X::DEBUG_Expr;
   };

@@ -77,6 +77,6 @@ namespace lpp {
   #ifdef LPP_DEBUG
     //some utilities (for debug mostly)
     template<typename N>
-    decltype(lambda::toInt<N>) toInt=lambda::toInt<N>;
+    auto toInt=lambda::toInt<N>;
   #endif
 };

@@ -14,7 +14,7 @@ namespace lambda {
     template<typename... EE> struct Expr;
     template<typename E,typename... EE> struct Expr<E,EE...>:Bind<E>::template Expr<EE...> {};
     template<typename E> struct Expr<E>:Bind<E> {};
-    static inline constexpr String name() {return Name<F,n,OO...>::name();}
+    static inline constexpr Str name() {return Name<F,n,OO...>::name();}
   };
 
   // template<template<typename...> class F,int n, typename... OO>
@@ -38,7 +38,7 @@ namespace lambda {
     template<typename... EE> struct Expr;
     template<typename E,typename... EE> struct Expr<E,EE...>:Bind<E>::template Expr<EE...>{};
     template<typename E> struct Expr<E>:Bind<E> {};
-    static inline constexpr String name() {return Name<F,0,OO...>::name();}
+    static inline constexpr Str name() {return Name<F,0,OO...>::name();}
   };
 
   //////////////////////////////////////////////////////////////////////////////

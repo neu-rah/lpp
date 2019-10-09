@@ -26,12 +26,12 @@ int main() {
   cout<<(0!=(N0::Bind<Not>::Bind<True>::Bind<Float>::Bind<Int>::App::Type)0.618?"Ok":"Fail")<<": Zero numeral"<<endl;
   cout<<(0==(Succ::Bind<N4>::Bind<Not>::Bind<True>::Bind<Float>::Bind<Int>::App::Type)0.618?"Ok":"Fail")<<": Succ N4"<<endl;
 
-  cout<<value<Expr<N0,Not,True,Ok,Fail>>()<<": N0 Not True"<<endl;
-  cout<<value<Expr<N1,Not,True,Fail,Ok>>()<<": N1 Not True"<<endl;
-  cout<<value<Expr<N2,Not,True,Ok,Fail>>()<<": N2 Not True"<<endl;
-  cout<<value<Expr<N3,Not,True,Fail,Ok>>()<<": N3 Not True"<<endl;
-  cout<<value<Expr<N4,Not,True,Ok,Fail>>()<<": N4 Not True"<<endl;
-  cout<<value<Expr<N5,Not,True,Fail,Ok>>()<<": N5 Not True"<<endl;
+  cout<<value<Expr<N0,Not,True,Ok,Fail>>()<<": True"<<endl;
+  cout<<value<Expr<N1,Not,True,Fail,Ok>>()<<": Not True"<<endl;
+  cout<<value<Expr<N2,Not,True,Ok,Fail>>()<<": Not Not True"<<endl;
+  cout<<value<Expr<N3,Not,True,Fail,Ok>>()<<": Not Not Not True"<<endl;
+  cout<<value<Expr<N4,Not,True,Ok,Fail>>()<<": Not Not Not Not True"<<endl;
+  cout<<value<Expr<N5,Not,True,Fail,Ok>>()<<": Not Not Not Not Not True"<<endl;
 
   // cout<<N3::Bind<Peano>::Bind<Zero>::toInt()<<endl;
   cout
