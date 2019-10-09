@@ -21,10 +21,10 @@ Using Lazyness, static immutable "data" (here expressed as c++ types) and partia
 
 ## lambda base
 
-lambda calculus base [lambda core](./LAMBDA.md)
+lambda calculus base [lambda core doc.](./LAMBDA.md)
 
 ## lpp
 
 This is an attempt to make lambda more usable... not very practical yet.
 
- [lambda core](./LPP.md)
+ [LPP doc.](./LPP.md)

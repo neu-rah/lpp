@@ -1,17 +1,7 @@
 # <λ++>
 #### type-level lazy untyped lambda for C++
 
-this is pure compile time, so data here are C++ types
-
-inspired by the excellent videos of @glebec (https://youtu.be/3VQ382QG-y4) (thank you!)
-
-**Scope**  
-This idiom uses lambda calculus as its background on a close cope with c++ templates.
-It only operates at compile time.  
-Results is normal form translate to C++ types (native or user defined).  
-So this expressions can only be used in replacement of C++ types.  
-A layer to provide `constexpr` values is provide through dependent types.
-It is therefor a turing-complete idiom to decide types at compile time.
+this is pure compile time, so "data" here are C++ types
 
 **Some examples:**  
 ```c++
