@@ -167,7 +167,7 @@ numerals will yield the corresponding value
 
 `FoldL f n l` fold left a list `l` using 'binary' function `f` starting with `n`
 
-`FoldL f n l` right fold a list `l` using 'binary' function `f` starting with `n`
+`FoldR f n l` right fold a list `l` using 'binary' function `f` starting with `n`
 
 `Zip a b` build a list of pairs from elements of lists A and B, until one of them ends.
 

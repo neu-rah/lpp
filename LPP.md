@@ -179,7 +179,7 @@ function `f` should return True for each element that should be included on the 
 #### FoldL
 `FoldL<f,i,l>`  fold a list (from left to write) applying function binary `f` to the initial value and repeating the process to the rest of the list with the function result as initial.
 
-#### FoldL
+#### FoldR
 `FoldR<f,i,l>` same as `FoldL` but starting from the last element of the list.
 
 #### Zip
