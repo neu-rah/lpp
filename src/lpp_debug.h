@@ -3,11 +3,7 @@
 /*Rui Azevedo (neu-rah) ruihfazevedo@gmail.com Aug2019*/
 #ifdef LPP_DEBUG
   #include <string>
-  #include "base.h"
-  #include "types.h"
   #include "lambda.h"
-  #include "curry.h"
-  #include "logic.h"
 
   namespace lambda {
     template<typename O> Str trace() {return O::name();}

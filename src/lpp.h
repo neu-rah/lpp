@@ -2,10 +2,10 @@
 #pragma once
 /*Rui Azevedo (neu-rah) ruihfazevedo@gmail.com Aug2019*/
 
-#include "numerals.h"
-#include "dependent.h"
-#include "list.h"
-#include "base.hpp"
+#include "compile/numerals.h"
+#include "compile/dependent.h"
+#include "compile/list.h"
+#include "compile/base.hpp"
 
 #define LPP(x) LPP_TT struct x:lambda::Expr<lambda::x,OO...>{}; template<> struct x<>:lambda::x {};
 #define LPP_TT template<typename... OO>

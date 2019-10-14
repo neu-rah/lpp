@@ -4,7 +4,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 // access values at typelevel as c++ dependent types
 
-#include <curry.h>
+#include "curry.h"
 
 namespace lambda {
   // Static values

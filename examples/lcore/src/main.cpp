@@ -18,13 +18,14 @@ inline int _test(int a,int b) {return a*b;}
 using test=curry<int,decltype(&_test),_test,2>;
 
 int main() {
+  cout<<"λ++ tests ------------------------"<<endl;
   //debug output
-  cout<<trace<Ok>()<<endl;//type string
-  Show<Expr<N1,Not,True,Yes,No>>();//cout type => type::App
-
-  //numerals, selecting a type
-  cout<<(0!=(N0::Bind<Not>::Bind<True>::Bind<Float>::Bind<Int>::App::Type)0.618?"Ok":"Fail")<<": Zero numeral"<<endl;
-  cout<<(0==(Succ::Bind<N4>::Bind<Not>::Bind<True>::Bind<Float>::Bind<Int>::App::Type)0.618?"Ok":"Fail")<<": Succ N4"<<endl;
+  // cout<<trace<Ok>()<<endl;//type string
+  // Show<Expr<N1,Not,True,Yes,No>>();//cout type => type::App
+  //
+  // //numerals, selecting a type
+  // cout<<(0!=(N0::Bind<Not>::Bind<True>::Bind<Float>::Bind<Int>::App::Type)0.618?"Ok":"Fail")<<": Zero numeral"<<endl;
+  // cout<<(0==(Succ::Bind<N4>::Bind<Not>::Bind<True>::Bind<Float>::Bind<Int>::App::Type)0.618?"Ok":"Fail")<<": Succ N4"<<endl;
 
   cout<<value<Expr<N0,Not,True,Ok,Fail>>()<<": True"<<endl;
   cout<<value<Expr<N1,Not,True,Fail,Ok>>()<<": Not True"<<endl;
