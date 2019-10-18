@@ -86,7 +86,7 @@ namespace lambda {
   };
   using Peano=Curry<Peano_Succ,1>;
 
-  template<typename N> size_t toInt() {return N::template Bind<Peano>::template Bind<Zero>::App::toInt();}
+  template<typename N> constexpr size_t toInt() {return N::template Bind<Peano>::template Bind<Zero>::App::toInt();}
 
   ////////////////////////////////////////////////
   // convert size_t into numeral
