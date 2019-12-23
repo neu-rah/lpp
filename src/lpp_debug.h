@@ -4,6 +4,7 @@
 #ifdef LPP_DEBUG
   #include <string>
   #include "lambda.h"
+  #include <iostream>
 
   namespace lambda {
     template<typename O> Str trace() {return O::name();}
@@ -87,7 +88,7 @@
 
     template<typename O>
     void Show() {
-      cout<<trace<O>()<<" => "<<trace<typename O::App>()<<endl;
+      std::cout<<trace<O>()<<" => "<<trace<typename O::App>()<<std::endl;
     }
   }//λ
 #endif

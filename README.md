@@ -19,12 +19,18 @@ It is therefor a turing-complete idiom to decide types at compile time.
 Types have to be extracted after expression evaluation (::App) to yeld valid C++ types.
 Using Lazyness, static immutable "data" (here expressed as c++ types) and partial application.
 
+## lambda base
+
+lambda calculus base [lambda core doc.](./LAMBDA.md)
+
 ## lpp
 
 This is an attempt to make lambda more usable... not very practical yet.
 
 [LPP doc.](./LPP.md)
 
-## lambda base
+## r-lambda
 
-lambda calculus base [lambda core doc.](./LAMBDA.md)
+runtime lambda, turning c++ functions into curryed functions at runtime
+
+this is at very basic stage
