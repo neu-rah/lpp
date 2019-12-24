@@ -17,12 +17,19 @@ namespace rlambda {
   template<typename O> inline O __false(O,O o) {return o;}
   template<typename O> auto _false=curry(&__false<O>);
 
-  template<typename F>
-  using Ret=typename FuncInfo<F>::Ret;
-
   template<typename F,typename A,typename B>
   auto __flip(F f,A a,B b)->decltype(f(b)(a)) {return f(b)(a);}
   template<typename F,typename A,typename B>
   auto _flip=curry(&__flip<F,A,B>);
+
+  // template<typename F>
+  // using Ret=typename FuncInfo<F>::Ret;
+
+  //this needs to be in variable type (template template)
+  //because p(q)(p') => p!=p'  
+  template<typename F>
+  auto __and(F p,F q)->decltype(p(q)(p)) {return p(q)(p);}
+  template<typename F>
+  auto _and=curry(&__and<F>);
 
 };//rλ
