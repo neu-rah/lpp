@@ -6,30 +6,30 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 #include "run/curry.h"
+#include "run/types.h"
+using namespace lambda;
+
 namespace rlambda {
 
-  template<typename O> inline O __id(O i) {return i;}
-  template<typename O> auto _id=curry(&__id<O>);
+  template<typename O> O _rI(O o){return o;}
+  template<typename O> RCurry<decltype(_rI<O>),_rI<O>,O> rI;
 
-  template<typename O> inline O __true(O o,O) {return o;}
-  template<typename O> auto _true=curry(&__true<O>);
+  //function ref, should be template or normal param? probably both versions
+  template <typename F,F& f,typename O>
+  auto _rM(O o)->decltype(f(f)(o)) {return f(f)(o);}
+  template <typename F,F& f,typename O>
+  RCurry<decltype(_rM<F,f,O>),_rM<F,f,O>,O> rM;
 
-  template<typename O> inline O __false(O,O o) {return o;}
-  template<typename O> auto _false=curry(&__false<O>);
+  template<typename O,typename>
+  O _rK(O o) {return o;}
+  template<typename O,typename P>
+  RCurry<decltype(_rK<O,P>),_rK<O,P>,O,P> rK;
 
-  template<typename F,typename A,typename B>
-  auto __flip(F f,A a,B b)->decltype(f(b)(a)) {return f(b)(a);}
-  template<typename F,typename A,typename B>
-  auto _flip=curry(&__flip<F,A,B>);
+  template<typename O,typename P>
+  auto rKI=rK<rI<O>,P>(rI<O>);
 
-  // template<typename F>
-  // using Ret=typename FuncInfo<F>::Ret;
+  template<typename F,F& f,typename A,typename B>
+  auto _rC(A a,B b)->decltype(f(b)(a)) {return f(b)(a);}
 
-  //this needs to be in variable type (template template)
-  //because p(q)(p') => p!=p'  
-  template<typename F>
-  auto __and(F p,F q)->decltype(p(q)(p)) {return p(q)(p);}
-  template<typename F>
-  auto _and=curry(&__and<F>);
 
 };//rλ
