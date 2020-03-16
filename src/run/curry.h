@@ -26,8 +26,8 @@ namespace rlambda {
     static constexpr int need=toInt<Need>();
 
     template<typename R>
-    _RC<R::need-1,This,R> operator()(R& r)
-      {return _RC<need-1,This,R>(*this,r);}
+    _RC<R::need,This,R> operator()(R& r)
+      {return _RC<R::need,This,R>(*this,r);}
 
     RC<need-1,This,OO...> operator()(O o) {return RC<need-1,This,OO...>(*this,o);}
 
@@ -42,8 +42,8 @@ namespace rlambda {
     static constexpr int need=1;
     auto operator()(O o)->decltype(f(o)) {return f(o);}
     template<typename R>
-    _RC<need-1,This,R> operator()(R& r)
-      {return _RC<need-1,This,R>(*this,r);}
+    _RC<R::need,This,R> operator()(R& r)
+      {return _RC<R::need,This,R>(*this,r);}
   };
 
   template<int need,typename P,typename O,typename... OO>
@@ -79,7 +79,11 @@ namespace rlambda {
 
     template<typename R>
     _RC<R::need,This,R> operator()(R r)
-      {return _RC<1,This,R>(*this,r);}
+      {return prev(bound(r));}
+  };
+
+  template<typename P>
+  struct RC<0,P,void> {
   };
 
   template<int need,typename P,typename B>
@@ -92,7 +96,7 @@ namespace rlambda {
 
     inline _RC(P& p,Bound o):prev(p),bound(o) {}
 
-    auto operator()(Want o)->decltype(prev(o)) {return prev(o);}
+    auto operator()(Want o)->decltype(bound(o)) {return bound(o);}
 
     template<typename R>
     auto operator()(R& r)->decltype(_RC<R::need,This,R>(*this,r))
@@ -109,7 +113,7 @@ namespace rlambda {
 
     inline _RC(P& p,Bound o):prev(p),bound(o) {}
 
-    auto operator()(Want o)->decltype(prev(o)) {return prev(o);}
+    auto operator()(Want o)->decltype(prev(o)) {return prev(bound(o));}
 
     template<typename R>
     auto operator()(R& r)->decltype(_RC<R::need,This,R>(*this,r))
