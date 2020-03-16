@@ -10,7 +10,7 @@ using namespace lambda;
 namespace rlambda {
 
   template<typename O>
-  struct rAs:As<O> {
+  struct rAs:lambda::As<O> {
     O o;
     inline rAs(O o):o(o) {}
     inline O operator()() const {return o;}

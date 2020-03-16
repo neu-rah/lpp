@@ -5,19 +5,18 @@ using namespace std;
 using namespace rlambda;
 
 int _d(int x){return x<<1;}
-RCurry<decltype(_d),_d,int> d;
+auto d=_RCurry<decltype(_d),_d,int>();
 
-int _m(int a,int b) {return a*b;}
-RCurry<decltype(_m),_m,int,int> m;
-
-template<typename O>
-O _div(O a,O b) {return a/b;}
-template<typename O>
-RCurry<decltype(_div<O>),_div<O>,O,O> rat;
-
+int _m(int x,int y){return x*y;}
+auto m=_RCurry<decltype(_m),_m,int,int>();
 
 int main(int argc, char **argv) {
-  cout<<RI<rAs>()(2)<<endl;
-  cout<<RI<RI<rAs>>()()(2);
+  cout<<d(2)<<endl;
+  cout<<m(2)(3)<<endl;
+  // auto dm=decltype(d)::Bind<decltype(m),m,int>(2);
+  auto x=d(d);
+  d(m);
+  cout<<x(2)<<endl;
+  // cout<<m(d)(2)(3)<<endl;
   return 0;
 }

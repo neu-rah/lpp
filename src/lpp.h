@@ -7,7 +7,12 @@
 #include "compile/list.h"
 #include "compile/base.hpp"
 
+// template<typename O>
+// struct Lambda {
+// };
+
 #define LPP(x) LPP_TT struct x:lambda::Expr<lambda::x,OO...>{}; template<> struct x<>:lambda::x {};
+
 #define LPP_TT template<typename... OO>
 
 namespace lpp {
@@ -16,7 +21,8 @@ namespace lpp {
   using Int=lambda::Int;
   using Float=lambda::Float;
   using String=lambda::String;
-  template<typename O> using As=lambda::As<O>;
+  template<typename O>
+  using As=lambda::As<O>;
   template<typename O>
   inline constexpr auto value()->decltype(O::App::value()) {return O::App::value();}
   template<typename R,typename F,F f,int n, typename... OO>
@@ -74,9 +80,6 @@ namespace lpp {
   template<size_t n> struct N:Succ<N<n-1>> {};
   template<> struct N<0>:lambda::N0 {};
 
-  // #ifdef LPP_DEBUG
-    //some utilities (for debug mostly)
-    template<typename N>
-    inline constexpr size_t toInt() {return lambda::toInt<N>;};
-  // #endif
+  template<typename N>
+  inline constexpr size_t toInt() {return lambda::toInt<N>();};
 };

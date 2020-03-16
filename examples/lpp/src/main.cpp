@@ -15,9 +15,14 @@ class myClass2 {};
 //add a zero to naturals
 using Nz=Cons<N<0>,Nats<>>;
 
+using SmaList=Cons<Char,Cons<Int,Cons<Float>>>;
+
 int main() {
   //debug print (not always possible due to laziness and infinite structures)
   cout<<"debug print lambda expression:"<<lambda::trace<True<Int,Float>>()<<endl;
+  cout<<"debug print lambda expression:"<<lambda::trace<False<Int,Float>>()<<endl;
+  cout<<"debug print lambda expression:"<<lambda::trace<Head<SmaList>>()<<endl;
+  // cout<<"debug print lambda expression:"<<lambda::trace<Head<List<>>()<<endl;//error, head of empty list (does not compile)
 
   //extracting a value from a dependent type lambda
   cout<<"print lambda dependent type (char*): "<<value<Yes>()<<endl;
@@ -37,12 +42,7 @@ int main() {
 
   cout<<"head (drop 10 [0,1,..]) -> ";
   cout<<toInt<
-    Head<
-      Drop<
-        N<10>,
-        Nz
-      >
-    >
+    Head<Drop<N<10>,Nz>>
   >()<<endl;
 
   cout<<"head (drop 10 (Map (Mult 2) [0,1,..])) -> ";
@@ -55,5 +55,5 @@ int main() {
     >
   >()<<endl;
 
-  return 0;
+    return 0;
 }
