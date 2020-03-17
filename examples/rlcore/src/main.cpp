@@ -21,8 +21,11 @@ int main(int argc, char **argv) {
   cout<<m(2)(3)<<endl;
   auto x=d(d);
   cout<<x(2)<<endl;
-  cout<<id<int>(id<int>)(1967)<<endl;
+  cout<<id<int>(d)(1967)<<endl;
   cout<<m(d)(5)(3)<<endl;
   cout<<d(m)(2)(3)<<endl;
+  cout<<m(5)(d)(3)<<endl;
+  cout<<d(m)(10)(2)<<endl;
+  cout<<d(m(10))(2)<<endl;//same as above
   return 0;
 }

@@ -21,7 +21,7 @@ namespace rlambda {
     static constexpr int need=toInt<Need>();
 
     template<typename R>
-    _RC<R::need,This,R> operator()(R& r)
+    _RC<R::need,This,R> operator()(const R& r)
       {return _RC<R::need,This,R>(*this,r);}
 
     RC<need-1,This,OO...> operator()(O o) {return RC<need-1,This,OO...>(*this,o);}
@@ -40,7 +40,7 @@ namespace rlambda {
     auto operator()(O o)->decltype(f(o)) {return f(o);}
 
     template<typename R>
-    _RC<R::need,This,R> operator()(R& r)
+    _RC<R::need,This,R> operator()(const R& r)
       {return _RC<R::need,This,R>(*this,r);}
 
     auto app(O o)->decltype(operator()(o)) {return operator()(o);}
@@ -59,11 +59,11 @@ namespace rlambda {
     RC<need-1,This,OO...> operator()(O o) {return RC<need-1,This,OO...>(*this,o);}
 
     template<typename R>
-    _RC<R::need,This,R> operator()(R& r)
+    _RC<R::need,This,R> operator()(const R& r)
       {return _RC<R::need,This,R>(*this,r);}
 
     template<typename... Args>
-    auto app(Args... args)->decltype(prev.app(bound)) {return prev.app(bound,args...);}
+    auto app(Args... args)->decltype(prev.app(bound,args...)) {return prev.app(bound,args...);}
   };
 
   template<typename P,typename O>
@@ -81,8 +81,10 @@ namespace rlambda {
       {return prev.app(bound,o);}
 
     template<typename R>
-    _RC<R::need,This,R> operator()(R& r)
-      {return prev(bound(r));}
+    _RC<R::need,This,R> operator()(const R& r)
+      {return _RC<R::need,This,R>(*this,r);}
+
+    auto app(O o)->decltype(prev.app(bound,o)) {return prev.app(bound,o);}
   };
 
   template<int n,typename P,typename B>
@@ -104,7 +106,7 @@ namespace rlambda {
     auto app(Want o)->decltype(prev(o)) {return prev(o);}
 
     template<typename R>
-    auto operator()(R& r)
+    auto operator()(const R& r)
       ->decltype(_RC<R::need,This,R>(*this,r))
       {return    _RC<R::need,This,R>(*this,r);}
   };
@@ -124,7 +126,7 @@ namespace rlambda {
       {return prev.app(bound(o));}
 
     template<typename R>
-    auto operator()(R& r)->decltype(_RC<R::need,This,R>(*this,r))
+    auto operator()(const R& r)->decltype(_RC<R::need,This,R>(*this,r))
       {return _RC<1,This,R>(*this,r);}
   };
 };//rλ
