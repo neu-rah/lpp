@@ -90,5 +90,6 @@
     void Show() {
       std::cout<<trace<O>()<<" => "<<trace<typename O::App>()<<std::endl;
     }
+
   }//λ
 #endif
