@@ -17,12 +17,12 @@ int _m(int x,int y){return x*y;}
 auto m=_RCurry<decltype(_m),_m,int,int>();
 
 int main(int argc, char **argv) {
-  // cout<<d(2)<<endl;
-  // cout<<m(2)(3)<<endl;
-  // auto x=d(d);
-  // cout<<x(2)<<endl;
-  // cout<<id<int>(id<int>)(1967)<<endl;
+  cout<<d(2)<<endl;
+  cout<<m(2)(3)<<endl;
+  auto x=d(d);
+  cout<<x(2)<<endl;
+  cout<<id<int>(id<int>)(1967)<<endl;
+  cout<<m(d)(5)(3)<<endl;
   cout<<d(m)(2)(3)<<endl;
-  // cout<<m(d)(5)(3)<<endl;
   return 0;
 }

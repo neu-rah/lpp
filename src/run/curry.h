@@ -4,19 +4,13 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Currying C++ functions //////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-// #include "../compile/curry.h"
-// #include "../compile/numerals.h"
-// #include "../compile/dependent.h"
-// #include "../compile/list.h"
-// using namespace lambda;
-
 #include "../lpp.h"
 using namespace lpp;
 
 namespace rlambda {
 
-  template<int need,typename P,typename O,typename... OO> struct RC;
-  template<int need,typename P,typename B> struct _RC;
+  template<int n,typename P,typename O,typename... OO> struct RC;
+  template<int n,typename P,typename B> struct _RC;
 
   template<typename F,F& f,typename O,typename... OO>
   struct _RCurry {
@@ -33,6 +27,7 @@ namespace rlambda {
     RC<need-1,This,OO...> operator()(O o) {return RC<need-1,This,OO...>(*this,o);}
 
     auto app(O o,OO... oo)->decltype(f(o,oo...)) {return f(o,oo...);}
+    auto app(O o)->decltype(operator()(o)) {return operator()(o);}
   };
 
   template<typename F,F& f,typename O>
@@ -51,8 +46,9 @@ namespace rlambda {
     auto app(O o)->decltype(operator()(o)) {return operator()(o);}
   };
 
-  template<int need,typename P,typename O,typename... OO>
+  template<int n,typename P,typename O,typename... OO>
   struct RC {
+    static constexpr int need=n;
     using This=RC<need,P,O,OO...>;
     using Want=O;
     P prev;
@@ -72,6 +68,7 @@ namespace rlambda {
 
   template<typename P,typename O>
   struct RC<1,P,O> {
+    static constexpr int need=1;
     using This=RC<1,P,O>;
     using Want=O;
     using Bound=typename P::Want;
@@ -88,12 +85,9 @@ namespace rlambda {
       {return prev(bound(r));}
   };
 
-  // template<typename P>
-  // struct RC<0,P,void> {
-  // };
-
-  template<int need,typename P,typename B>
+  template<int n,typename P,typename B>
   struct _RC {
+    static constexpr int need=n;
     using This=_RC<need,P,B>;
     P prev;
     using Bound=B;
@@ -125,7 +119,9 @@ namespace rlambda {
 
     inline _RC(P& p,Bound o):prev(p),bound(o) {}
 
-    auto operator()(Want o)->decltype(prev.app(bound(o))) {return prev.app(bound(o));}
+    auto operator()(Want o)
+      ->decltype(prev.app(bound(o)))
+      {return prev.app(bound(o));}
 
     template<typename R>
     auto operator()(R& r)->decltype(_RC<R::need,This,R>(*this,r))
