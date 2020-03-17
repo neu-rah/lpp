@@ -126,6 +126,8 @@ namespace rlambda {
 
     template<typename R>
     auto operator()(const R& r)->decltype(_RC<R::need,This,R>(*this,r)) const
-      {return _RC<1,This,R>(*this,r);}
+      {return _RC<R::need,This,R>(*this,r);}
+
+    auto app(Want o) const ->decltype(prev.app(bound(o))) {return prev.app(bound(o));}
   };
 };//rλ

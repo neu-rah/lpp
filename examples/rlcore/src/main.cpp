@@ -27,5 +27,6 @@ int main(int argc, char **argv) {
   cout<<m(5)(d)(3)<<endl;
   cout<<d(m)(10)(2)<<endl;
   cout<<d(m(10))(2)<<endl;//same as above
+  cout<<d(m)(5)(m)(3)(2)<<endl;
   return 0;
 }
