@@ -5,77 +5,137 @@
 // Currying C++ functions //////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 #include "../lpp.h"
+using namespace lpp;
 
 namespace rlambda {
 
-  //runtime curry
-  //this will turn a C++ funtime function into its a curryed version
+  template<int n,typename P,typename O,typename... OO> struct RC;
+  template<int n,typename P,typename B> struct _RC;
 
-  //adapted from: https://gist.github.com/qnighy/496866
-  template<typename Func,int cnt>
-  struct CurryFunction {
-      Func f;
-      template<typename... Args>
-      inline auto operator()(Args... args) -> decltype(f(args...)) {
-          return f(args...);
-      }
-      template<typename FArg>
-      struct Binder {
-          Func f;
-          FArg farg;
-          template<typename... Args>
-          inline auto operator()(Args... args) -> decltype(f(farg, args...)) {
-              return f(farg, args...);
-          }
-          inline Binder(const Func& f, const FArg farg) : f(f), farg(farg) {}
-      };
-      template<typename FArg>
-      inline CurryFunction<Binder<FArg>,cnt-1> operator()(FArg farg) {return CurryFunction<Binder<FArg>,cnt-1>(Binder<FArg>(f,farg));}
-      template<typename A, typename B, typename... Args>
-      void operator()(A a, B b, Args... args) = delete;
-      inline CurryFunction(const Func& f) : f(f) {}
+  template<typename F,F& f,typename O,typename... OO>
+  struct RCurry {
+    using This=RCurry<F,f,O,OO...>;
+    using Want=O;
+    static constexpr int miss=toInt<Length<List<O,OO...>>>();
+
+    template<typename R>
+    _RC<R::miss,This,R> operator()(const R& r) const
+      {return _RC<R::miss,This,R>(*this,r);}
+
+    // template<typename R,R& r>
+    // _RC<R::miss,This,R> operator()() const
+    //   {return _RC<R::miss,This,R>(*this,r);}
+
+    RC<miss-1,This,OO...> operator()(O o) const {return RC<miss-1,This,OO...>(*this,o);}
+
+    auto app(O o,OO... oo) const ->decltype(f(o,oo...)) {return f(o,oo...);}
+    auto app(O o) const ->decltype(operator()(o)) {return operator()(o);}
   };
 
-  template<typename Func>
-  struct CurryFunction<Func,0> {
-    Func f;
+  template<typename F,F& f,typename O>
+  struct RCurry<F,f,O> {
+    using This=RCurry<F,f,O>;
+    using Want=O;
+    static constexpr int miss=1;
+
+    auto operator()(O o) const ->decltype(f(o)) {return f(o);}
+
+    template<typename R,R r>
+    _RC<R::miss,This,R> operator()() const
+      {return _RC<R::miss,This,R>(*this,r);}
+
+    template<typename R>
+    _RC<R::miss,This,R> operator()(const R& r) const
+      {return _RC<R::miss,This,R>(*this,r);}
+
+    auto app(O o) const ->decltype(operator()(o)) {return operator()(o);}
+  };
+
+  template<int n,typename P,typename O,typename... OO>
+  struct RC {
+    static constexpr int miss=n;
+    using This=RC<miss,P,O,OO...>;
+    using Want=O;
+    using Bound=typename P::Want;
+    const P prev;
+    const Bound bound;
+    inline RC(const P p,const Bound o):prev(p),bound(o) {}
+
+    RC<miss-1,This,OO...> operator()(O o) const {return RC<miss-1,This,OO...>(*this,o);}
+
+    template<typename R>
+    _RC<R::miss,This,R> operator()(const R& r) const
+      {return _RC<R::miss,This,R>(*this,r);}
+
     template<typename... Args>
-    inline auto operator()(Args... args) -> decltype(f(args...)) {
-        return f(args...);
-    }
-    template<typename FArg>
-    struct Binder {
-        Func f;
-        FArg farg;
-        template<typename... Args>
-        inline auto operator()(Args... args) -> decltype(f(farg, args...)) {
-            return f(farg, args...);
-        }
-        inline Binder(const Func& f, const FArg farg) : f(f), farg(farg) {}
-    };
-    template<typename FArg>
-    inline auto operator()(FArg farg)->decltype(CurryFunction<Binder<FArg>,0>(Binder<FArg>(f,farg))()) {
-      CurryFunction<Binder<FArg>,0>(Binder<FArg>(f,farg))();
-    }
-    template<typename A, typename B, typename... Args>
-    void operator()(A a, B b, Args... args) = delete;
-    inline CurryFunction(const Func& f) : f(f) {}
+    auto app(Args... args) const ->decltype(prev.app(bound,args...)) {return prev.app(bound,args...);}
   };
 
-  template<typename F>struct FuncInfo{
-    using Func=F;
-  };
-  template<typename R,typename O,typename... OO>
-  struct FuncInfo<R(*)(O,OO...)>{
-    using Ret=R;
-    using Func=R(*)(O,OO...);
-    using Args=lambda::List<O,OO...>;
-    constexpr static size_t argc=lambda::toInt<lambda::Expr<lambda::Length,Args>>();
+  template<typename P,typename O>
+  struct RC<1,P,O> {
+    static constexpr int miss=1;
+    using This=RC<1,P,O>;
+    using Want=O;
+    using Bound=typename P::Want;
+    const P prev;
+    const Bound bound;
+    inline RC(const P& p,const Bound o):prev(p),bound(o) {}
+
+    auto operator()(const O o) const
+      ->decltype(prev.app(bound,o))
+      {return prev.app(bound,o);}
+
+    template<typename R>
+    _RC<R::miss,This,R> operator()(const R& r) const
+      {return _RC<R::miss,This,R>(*this,r);}
+
+    auto app(O o) const ->decltype(prev.app(bound,o)) {return prev.app(bound,o);}
   };
 
-  template<typename Func>
-  inline CurryFunction<Func,FuncInfo<Func>::argc-1> curry(const Func& f) {
-    return CurryFunction<Func,FuncInfo<Func>::argc-1>(f);
-  }
+  template<int n,typename P,typename B>
+  struct _RC {
+    static constexpr int miss=n;
+    using This=_RC<miss,P,B>;
+    using Bound=B;
+    const P prev;
+    const Bound bound;
+    using Want=typename B::Want;
+
+    inline _RC(const P& p,const Bound o):prev(p),bound(o) {}
+
+    template<typename=void>
+    auto operator()(Want o) const
+      ->decltype(_RC<miss-1,This,decltype(bound(o))>(*this,bound(o)))
+      {return    _RC<miss-1,This,decltype(bound(o))>(*this,bound(o));}
+
+    auto app(Want o) const ->decltype(prev(o)) {return prev(o);}
+
+    template<typename R>
+    auto operator()(const R& r) const
+      ->decltype(_RC<R::miss,This,R>(*this,r))
+      {return    _RC<R::miss,This,R>(*this,r);}
+  };
+
+  template<typename P,typename B>
+  struct _RC<1,P,B> {
+    using This=_RC<1,P,B>;
+    using Bound=B;
+    const P prev;
+    const Bound bound;
+    using Want=typename B::Want;
+
+    inline _RC(const P& p,const Bound o):prev(p),bound(o) {}
+
+    auto operator()(Want o) const
+      ->decltype(prev.app(bound(o)))
+      {return prev.app(bound(o));}
+
+    template<typename R>
+    auto operator()(const R& r)->decltype(_RC<R::miss,This,R>(*this,r)) const
+      {return _RC<R::miss,This,R>(*this,r);}
+
+    auto app(Want o) const ->decltype(prev.app(bound(o))) {return prev.app(bound(o));}
+  };
+
 
 };//rλ

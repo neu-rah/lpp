@@ -1,7 +1,7 @@
 {
   "execPath": "/usr/bin/g++",
-  "gccDefaultCFlags": "-fsyntax-only -ggdb -DPLATFORMIO=40100 -DLPP_DEBUG",
-  "gccDefaultCppFlags": "-fsyntax-only -std=c++11 -ggdb -DPLATFORMIO=40100 -DLPP_DEBUG",
+  "gccDefaultCFlags": "-fsyntax-only -ggdb -DPLATFORMIO=40201 -DLPP_DEBUG",
+  "gccDefaultCppFlags": "-fsyntax-only -std=c++11 -ggdb -DPLATFORMIO=40201 -DLPP_DEBUG",
   "gccErrorLimit": 15,
   "gccIncludePaths": "/home/azevedo/Work/r-site.net/lpp/examples/lpp/include,/home/azevedo/Work/r-site.net/lpp/examples/lpp/src,/home/azevedo/Work/r-site.net/lpp/src,/home/azevedo/.platformio/lib/U8glib_ID9,/home/azevedo/.platformio/packages/tool-unity",
   "gccSuppressWarnings": false
