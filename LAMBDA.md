@@ -20,9 +20,9 @@ using port_t=If<MCU_8BITS>::Then<Char>::Else<Int>::App::Type;
 
 ### Partial application
 
-Using a _curry_ template that can turn any c++ template of types into a curryed version, adding ::Bind member types. This also reduces the original template to a single type, making it possible to compose and combine them again in new operations.
+Using a _curry_ template that can turn any c++ template of types into a curried version, adding ::Bind member types. This also reduces the original template to a single type, making it possible to compose and combine them again in new operations.
 
-Just because non-curryed version are so easy to write in C++, but we absolutely need them currying.
+Just because non-curried version are so easy to write in C++, but we absolutely need them currying.
 
 Function application is **Lazy**.
 

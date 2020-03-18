@@ -5,11 +5,15 @@
 // runtime lambda abstractions /////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
-#include "run/curry.h"
-#include "run/types.h"
-using namespace lambda;
+// #include "run/curry.h"
+// #include "run/types.h"
+// using namespace lambda;
+#include "lpp.h"
+using namespace lpp;
 
-namespace rlambda {
-  template <typename O> using _I=O;
-  using I=Curry<_I,1>;
-};//rλ
+#include "run/curry.h"
+
+// namespace rlambda {
+//   template <typename O> using _I=O;
+//   using I=Curry<_I,1>;
+// };//rλ
