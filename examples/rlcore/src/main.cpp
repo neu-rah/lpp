@@ -31,10 +31,13 @@ constexpr auto d=RCurry<decltype(_d),_d,int>();
 int _m(int x,int y){return x*y;}
 constexpr auto m=RCurry<decltype(_m),_m,int,int>();
 
-template<typename O> O __true(O o,O) {return o;}
-template<typename O> auto _true=RCurry<decltype(__true<O>),__true<O>,O,O>();
+// template<typename O> O __true(O o,O) {return o;}
+// template<typename O> auto _true=RCurry<decltype(__true<O>),__true<O>,O,O>();
+template<typename O> constexpr auto _true=rK<O>;
+
 template<typename O> O __false(O,O o) {return o;}
-template<typename O> auto _false=RCurry<decltype(__false<O>),__false<O>,O,O>();
+template<typename O> constexpr auto _false=RCurry<decltype(__false<O>),__false<O>,O,O>();
+// template<typename O> auto _false=rK<O>(rI<O>);//TODO: make it literal
 
 /*
 evaluation order
