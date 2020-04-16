@@ -1,9 +1,9 @@
 # <λ++>
 #### turing-complete idiom to express types in C++
 
-[![Build Status](https://travis-ci.com/neu-rah/lpp.svg?branch=master)](https://travis-ci.org/neu-rah/lpp)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.me/ruihfazevedo)
 [![License: MIT](https://img.shields.io/github/license/neu-rah/lpp)](https://spdx.org/licenses/MIT.html)
+<!-- [![Build Status](https://travis-ci.com/neu-rah/lpp.svg?branch=master)](https://travis-ci.org/neu-rah/lpp) -->
 
 Based on lambda calculus, therefor using functional paradigm on top of modern C++ metaprogramming. Expressions on this idiom are metaprogramming and evaluate at compile time, yelding C++ types as a result.  
 
