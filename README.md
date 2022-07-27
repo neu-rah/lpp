@@ -5,6 +5,8 @@
 [![License: MIT](https://img.shields.io/github/license/neu-rah/lpp)](https://spdx.org/licenses/MIT.html)
 <!-- [![Build Status](https://travis-ci.com/neu-rah/lpp.svg?branch=master)](https://travis-ci.org/neu-rah/lpp) -->
 
+**see https://github.com/neu-rah/yolanda for a runtime/compile time alternative to this.**
+
 Based on lambda calculus, therefor using functional paradigm on top of modern C++ metaprogramming. Expressions on this idiom are metaprogramming and evaluate at compile time, yelding C++ types as a result.  
 
 inspired by the excellent videos of @glebec (https://youtu.be/3VQ382QG-y4) (thank you!)
